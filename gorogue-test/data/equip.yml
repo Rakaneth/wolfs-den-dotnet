@@ -1,0 +1,52 @@
+---
+whiteMark:
+  name: Mark of Ilma
+  desc: A holy symbol of the dragon Il'ma'to'ee'rey
+  slot: trinket
+  glyph: "="
+  stats:
+    dmg: 2
+  tags: &dragonSymbol
+    - holy
+    - dragon
+blackMark:
+  name: Mark of Barma
+  desc: A holy symbol of the dragon Yalakhbarma
+  slot: trinket
+  glyph: "="
+  stats:
+    tou: 5
+    res: 5
+  tags: *dragonSymbol
+  color: iron
+redMark:
+  name: Mark of Mekira
+  desc: A holy symbol of the dragon Xilomekira
+  slot: trinket
+  glyph: "="
+  stats:
+    atp: 5
+    pwr: 5
+  tags: *dragonSymbol
+  color: crimson
+greenMark:
+  name: Mark of Sansa
+  desc: A holy symbol of the dragon Sansapradava
+  slot: trinket
+  glyph: "="
+  stats:
+    dfp: 5
+    res: 5
+  tags: *dragonSymbol
+  color: green
+blueMark:
+  name: Mark of Atara
+  desc: A holy symbol of the dragon Ataramakaris
+  slot: trinket
+  glyph: "="
+  stats:
+    wil: 5
+    pwr: 5
+  tags: *dragonSymbol
+  color: cyan
+ironAxe:
