@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RootNamespace>gorogue_test</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="gorogue" Version="1.6.2" />
+    <PackageReference Include="monogame.framework.desktopgl" Version="3.6.0.1625" />
+    <PackageReference Include="sadconsole" Version="7.2.0" />
+    <PackageReference Include="sadconsole.starter" Version="2.0.6" />
+    <PackageReference Include="system.drawing.common" Version="4.5.1" />
+    <PackageReference Include="yamldotnet" Version="5.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="IBM.font">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="IBM8x16.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SDL2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\**\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

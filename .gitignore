@@ -1,0 +1,7 @@
+#vscode
+.vs/
+.vscode/
+
+#outputs
+**/bin/
+**/obj/
