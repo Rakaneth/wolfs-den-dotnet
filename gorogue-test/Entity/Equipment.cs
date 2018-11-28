@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace GoRogueTest.Entity
 {
@@ -10,26 +11,47 @@ namespace GoRogueTest.Entity
     WEAPON
   }
 
+  public enum DamageType
+  {
+    SLASH,
+    PIERCE,
+    BLUNT,
+    MAGIC
+  }
+
+  public enum EquipType
+  {
+    AXE,
+    SWORD,
+    STAFF,
+    RAPIER,
+    HAMMER,
+    ARMOR
+  }
+
   public class Material
   {
-    public string Name{get;}
-    public int Hardness{get;}
-    public static Dictionary<string, Material> Materials = new Dictionary<string, Material>() 
-    {
-      {"wood", new Material("wood", 5)},
-      {"leather", new Material("leather", 10)},
-      {"flesh", new Material("flesh", 7)},
-      {"iron", new Material("iron", 15)},
-      {"bone", new Material("bone", 10)},
-      {"steel", new Material("steel", 30)},
-      {"stone", new Material("stone", 18)},
-      {"blackiron", new Material("blackiron", 50)}
-    };
+    string name;
+    Color color;
+    int atp;
+    int dfp;
+    int dmg;
+    int tou;
+    int res;
+    int pwr;
+    int edr;
+    int wil;
+    List<EquipType> appTypes;
+    public int Atp => atp;
+    public int Dfp => dfp;
+    public int Dmg => dmg;
+    public int Tou => tou;
+    public int Res => res;
+    public int Pwr => pwr;
+    public int Edr => edr;
+    public int Wil => wil;
+    public List<EquipType> AppTypes => appTypes;
 
-    public Material(string name, int hardness)
-    {
-      Name = name;
-      Hardness = hardness;
-    }
+
   }
 }

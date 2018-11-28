@@ -26,12 +26,13 @@ namespace GoRogueTest.Entity
       public string Name{ get; set;}
       public string Desc{ get; set;}
       public EquipSlot Slot{ get; set;}
-      public Stats BaseStats {get; set;}
-      public string Glyph{get; set;}
+      public Stats Stats {get; set;}
+      public int Glyph{get; set;}
       public string Color{get; set;}
       public List<string> Tags{get; set;}
-      public string Material{get; set;}
-
+      public bool Material {get; set;}
+      public DamageType DamageType{get; set;}
+      public EquipType EquipType {get; set;}
     }
 
     public class Stats

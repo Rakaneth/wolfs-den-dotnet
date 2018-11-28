@@ -3,7 +3,7 @@ whiteMark:
   name: Mark of Ilma
   desc: A holy symbol of the dragon Il'ma'to'ee'rey
   slot: trinket
-  glyph: "="
+  glyph: 0x3D
   stats:
     dmg: 2
   tags: &dragonSymbol
@@ -13,7 +13,7 @@ blackMark:
   name: Mark of Barma
   desc: A holy symbol of the dragon Yalakhbarma
   slot: trinket
-  glyph: "="
+  glyph: 0x3D
   stats:
     tou: 5
     res: 5
@@ -23,7 +23,7 @@ redMark:
   name: Mark of Mekira
   desc: A holy symbol of the dragon Xilomekira
   slot: trinket
-  glyph: "="
+  glyph: 0x3D
   stats:
     atp: 5
     pwr: 5
@@ -33,7 +33,7 @@ greenMark:
   name: Mark of Sansa
   desc: A holy symbol of the dragon Sansapradava
   slot: trinket
-  glyph: "="
+  glyph: 0x3D
   stats:
     dfp: 5
     res: 5
@@ -43,10 +43,60 @@ blueMark:
   name: Mark of Atara
   desc: A holy symbol of the dragon Ataramakaris
   slot: trinket
-  glyph: "="
+  glyph: 0x3D
   stats:
     wil: 5
     pwr: 5
   tags: *dragonSymbol
   color: cyan
-ironAxe:
+axe: &baseAxe
+  name: <material> axe
+  desc: A large axe made from <material>.
+  slot: weapon
+  glyph: 0x2F
+  material: true
+  stats:
+    atp: -5
+    dmg: 10
+  damageType: slash
+  equipType: axe
+sword: &baseSword
+  name: <material> sword
+  desc: A shortsword made from <material>.
+  slot: weapon
+  glyph: 0x7C
+  material: true
+  stats:
+    atp: 5
+    dmg: 6
+  damageType: slash
+  equipType: sword
+staff: &baseStaff
+  name: <material> staff
+  desc: A long staff made from <material>.
+  slot: weapon
+  glyph: 0xF4
+  material: true
+  stats:
+    pwr: 5
+    wil: 5
+    dmg: 3
+  damageType: magic
+  equipType: staff
+rapier: &baseRapier
+  name: <material> rapier
+  desc: A thin rapier made from <material>.
+  slot: weapon
+  glyph: 0x19
+  material: true
+  stats:
+    atp: 10
+    dmg: 4
+  damageType: pierce
+  equipType: rapier
+
+
+
+
+  
+
