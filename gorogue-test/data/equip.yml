@@ -60,6 +60,8 @@ axe: &baseAxe
     dmg: 10
   damageType: slash
   equipType: axe
+  tags:
+    - weapon
 sword: &baseSword
   name: <material> sword
   desc: A shortsword made from <material>.
@@ -71,6 +73,8 @@ sword: &baseSword
     dmg: 6
   damageType: slash
   equipType: sword
+  tags:
+    - weapon
 staff: &baseStaff
   name: <material> staff
   desc: A long staff made from <material>.
@@ -83,6 +87,8 @@ staff: &baseStaff
     dmg: 3
   damageType: magic
   equipType: staff
+  tags:
+    - weapon
 rapier: &baseRapier
   name: <material> rapier
   desc: A thin rapier made from <material>.
@@ -94,9 +100,5 @@ rapier: &baseRapier
     dmg: 4
   damageType: pierce
   equipType: rapier
-
-
-
-
-  
-
+  tags:
+    - weapon
