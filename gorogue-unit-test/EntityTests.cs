@@ -4,14 +4,30 @@ using GoRogueTest.Entity;
 
 namespace GoRogueTest.UnitTests
 {
-    public class TestTest
+  public class DataTests
+  {
+    [Fact]
+    public void TestRaceTemplates()
     {
-        [Fact]
-        public void TestRaceTemplates()
-        {
-            Assert.NotEmpty(RaceTemplates.templates);
-            Assert.NotEmpty(TraitTemplates.templates);
-            Assert.NotEmpty(EquipTemplates.templates);
-        }
+      Assert.NotEmpty(RaceTemplates.templates);
     }
+
+    [Fact]
+    public void TestTraitTemplates()
+    {
+      Assert.NotEmpty(TraitTemplates.templates);
+    }
+
+    [Fact]
+    public void TestEquipTemplates()
+    {
+      Assert.NotEmpty(EquipTemplates.templates);
+    }
+
+    [Fact]
+    public void TestMaterialTemplates()
+    {
+      Assert.NotEmpty(MaterialTemplates.templates);
+    }
+  }
 }
