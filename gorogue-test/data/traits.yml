@@ -88,7 +88,7 @@ greenspeaker:
 anoprof:
   desc: No Profession
   type: profession
-  info: Perhaps you are a drifter, vagabond, or indolent; you claim no profession or trade. Your fate is what you make of it. You are prepared for that fate.
+  info: Perhaps you are a drifter, vagabond, or indolent; you claim no profession or trade. Your fate is what you make of it. You are prepared for that fate, whatever it may be.
   startEquip:
     - axe
     - sword

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace GoRogueTest.Entity
 {
-  public class TraitTemplates
+  public static class TraitTemplates
   {
     public static readonly Dictionary<string, TraitTemplate> templates = new Dictionary<string, TraitTemplate>();
 

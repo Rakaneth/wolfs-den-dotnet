@@ -6,7 +6,7 @@ using System.IO;
 
 namespace GoRogueTest.Entity
 {
-  public class EquipTemplates
+  public static class EquipTemplates
   {
     public readonly static Dictionary<string, EquipTemplate> templates;
 

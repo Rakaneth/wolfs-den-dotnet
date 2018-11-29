@@ -1,6 +1,7 @@
 using System;
 using Xunit;
 using GoRogueTest.Entity;
+using GoRogue.Random;
 
 namespace GoRogueTest.UnitTests
 {
@@ -28,6 +29,15 @@ namespace GoRogueTest.UnitTests
     public void TestMaterialTemplates()
     {
       Assert.NotEmpty(MaterialTemplates.templates);
+    }
+  }
+
+  public class RandomTests
+  {
+    [Fact]
+    public void TestProbTable()
+    {
+      
     }
   }
 }

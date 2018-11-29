@@ -6,7 +6,7 @@ using System.IO;
 
 namespace GoRogueTest.Entity
 {
-  public class MaterialTemplates
+  public static class MaterialTemplates
   {
     public readonly static Dictionary<string, MaterialTemplate> templates;
 
@@ -40,8 +40,4 @@ namespace GoRogueTest.Entity
       public Dictionary<string, Stats> Stats {get; set;}
     }
   }
-
-
-
-
 }
