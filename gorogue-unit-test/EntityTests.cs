@@ -1,6 +1,8 @@
 using System;
 using Xunit;
+using Xunit.Abstractions;
 using GoRogueTest.Entity;
+using GoRogueTest.RNG;
 using GoRogue.Random;
 
 namespace GoRogueTest.UnitTests
@@ -34,10 +36,43 @@ namespace GoRogueTest.UnitTests
 
   public class RandomTests
   {
-    [Fact]
-    public void TestProbTable()
+    private readonly ITestOutputHelper output;
+    public RandomTests(ITestOutputHelper output)
     {
-      
+      this.output = output;
+    }
+
+    [Theory]
+    [InlineData(1000)]
+    [InlineData(10000)]
+    [InlineData(100000)]
+    public void TestProbTable(int tries)
+    {
+      var prob = new ProbabilityTable<string>();
+      int common = 0;
+      int uncommon = 0;
+      int rare = 0;
+      prob.Add("common", 15);
+      prob.Add("uncommon", 10);
+      prob.Add("rare", 5);
+      string result;
+      for (int i=0; i<tries; i++)
+      {
+        result = prob.Get();
+        switch(result)
+        {
+          case "common": common++; break;
+          case "uncommon": uncommon++; break;
+          case "rare": rare++; break;
+        }
+      }
+      int commonStat = common * 30 / tries;
+      int uncommonStat = uncommon * 30 / tries;
+      int rareStat = rare * 30 / tries;
+      string commString = $"Common: {common} - approx: {commonStat}/30";
+      string uncommString = $"Uncommon: {uncommon} - approx: {uncommonStat}/30";
+      string rareString = $"Rare: {rare} - approx: {rareStat}/30";
+      output.WriteLine($"{commString}\n{uncommString}\n{rareString}");
     }
   }
 }
