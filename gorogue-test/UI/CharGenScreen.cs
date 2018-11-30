@@ -405,7 +405,8 @@ namespace GoRogueTest.UI
         var clicked = snd as Button;
         if (clicked != null)
         {
-          //TODO: to player screen
+          //TODO: pass results of char gen
+          UIManager.setScreen("play");
         }
       };
       UIUtils.AddRange(

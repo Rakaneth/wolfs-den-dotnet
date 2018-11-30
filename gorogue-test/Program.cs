@@ -26,7 +26,8 @@ namespace GoRogueTest
     {
       UIManager.register(
         new TitleScreen(),
-        new CharGenScreen()
+        new CharGenScreen(),
+        new PlayScreen()
       );
       UIManager.setScreen("title");
     }
