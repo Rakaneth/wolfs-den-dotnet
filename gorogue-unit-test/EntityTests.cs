@@ -42,7 +42,7 @@ namespace GoRogueTest.UnitTests
       this.output = output;
     }
 
-    [Theory]
+    [Theory(Skip="Run this manually")]
     [InlineData(1000)]
     [InlineData(10000)]
     [InlineData(100000)]
@@ -52,9 +52,9 @@ namespace GoRogueTest.UnitTests
       int common = 0;
       int uncommon = 0;
       int rare = 0;
-      prob.Add("common", 15);
+      prob.Add("common", 12);
       prob.Add("uncommon", 10);
-      prob.Add("rare", 5);
+      prob.Add("rare", 8);
       string result;
       for (int i=0; i<tries; i++)
       {
@@ -72,7 +72,9 @@ namespace GoRogueTest.UnitTests
       string commString = $"Common: {common} - approx: {commonStat}/30";
       string uncommString = $"Uncommon: {uncommon} - approx: {uncommonStat}/30";
       string rareString = $"Rare: {rare} - approx: {rareStat}/30";
-      output.WriteLine($"{commString}\n{uncommString}\n{rareString}");
+      output.WriteLine(commString);
+      output.WriteLine(uncommString);
+      output.WriteLine(rareString);
     }
   }
 }
