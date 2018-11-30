@@ -4,6 +4,8 @@ using Xunit.Abstractions;
 using GoRogueTest.Entity;
 using GoRogueTest.RNG;
 using GoRogue.Random;
+using GoRogueTest.Map;
+using GoRogue.MapGeneration.Generators;
 using System.Collections.Generic;
 
 namespace GoRogueTest.UnitTests
@@ -94,7 +96,7 @@ namespace GoRogueTest.UnitTests
       }
     }
 
-    [Theory]
+    [Theory(Skip="Run manually")]
     [InlineData(3)]
     public void TestRarity(int tries)
     {
@@ -113,7 +115,25 @@ namespace GoRogueTest.UnitTests
     }
   }
 
+  public class MapTests
+  {
+    private TileMap map = new TileMap(30, 30);
+    private readonly ITestOutputHelper output;
 
+    public MapTests(ITestOutputHelper output)
+    {
+      this.output = output;
+    }
 
-  
+    [Fact]
+    public void TestMapGen()
+    {
+      var transMap = new SetTileMapTranslator(map);
+      RectangleMapGenerator.Generate(transMap);
+      output.WriteLine(map[0, 0].ToString());
+      output.WriteLine(map[1, 1].ToString());
+      Assert.False(transMap[0, 0]);
+      Assert.True(transMap[1, 1]);
+    }
+  }
 }

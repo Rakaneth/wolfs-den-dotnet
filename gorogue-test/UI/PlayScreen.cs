@@ -55,7 +55,7 @@ namespace GoRogueTest.UI
       InitMsgs();
       InitInfo();
     }
-
+    #region InitExtensions
     private void InitMap()
     {
       map.FillWithRandomGarbage();
@@ -78,10 +78,12 @@ namespace GoRogueTest.UI
       UIUtils.border(info, "Info");
       Children.Add(info);
     }
-
+    #endregion
+    #region KeyHandler
     public override void HandleKeys()
     {
       //TODO: implementation
     }
+    #endregion
   }
 }
