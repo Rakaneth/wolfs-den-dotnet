@@ -23,10 +23,7 @@ namespace GoRogueTest.RNG
 
     public void Add(T item, int weight)
     {
-      if (weight > 0)
-      {
-        _tbl.Add(item, weight);
-      }
+      _tbl.Add(item, weight);
     }
 
     public void Remove(T item)

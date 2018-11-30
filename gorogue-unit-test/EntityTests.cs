@@ -42,7 +42,7 @@ namespace GoRogueTest.UnitTests
       this.output = output;
     }
 
-    [Theory(Skip="Run this manually")]
+    [Theory(Skip="Run manually")]
     [InlineData(1000)]
     [InlineData(10000)]
     [InlineData(100000)]
@@ -76,5 +76,23 @@ namespace GoRogueTest.UnitTests
       output.WriteLine(uncommString);
       output.WriteLine(rareString);
     }
+
+    [Theory(Skip="Run manually")]
+    [InlineData(3)]
+    [InlineData(5)]
+    [InlineData(10)]
+    public void TestShuffle(int tries)
+    {
+      var list = new int[]{1, 2, 3, 4, 5, 6, 7, 8};
+      output.WriteLine($"Original list: {string.Join(',', list)}");
+      
+      for (int i=0; i<tries; i++)
+      {
+        list.Shuffle(SingletonRandom.DefaultRNG);
+        output.WriteLine($"Shuffled list [{i+1}]: {string.Join(',', list)}");
+      }
+    }
   }
+
+  
 }
