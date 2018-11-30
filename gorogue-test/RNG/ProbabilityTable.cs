@@ -6,6 +6,11 @@ using System.Linq;
 
 namespace GoRogueTest.RNG
 {
+  public interface IRarity
+  {
+    int Rarity{get;}
+  }
+
   public class ProbabilityTable<T>
   {
     private IDictionary<T, int> _tbl = new Dictionary<T, int>();

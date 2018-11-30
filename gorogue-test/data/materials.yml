@@ -9,6 +9,7 @@ oak:
       wil: 5
     hammer:
       dmg: 1
+  rarity: 3
 iron:
   name: iron
   color: dark blue
@@ -23,6 +24,7 @@ iron:
       dmg: 3
     armor:
       atp: -5
+  rarity: 5
 leather:
   name: leather
   color: brown
@@ -30,6 +32,7 @@ leather:
   stats:
     armor:
       res: 5
+  rarity: 5
 steel:
   name: steel
   color: gray
@@ -47,6 +50,7 @@ steel:
     rapier:
       atp: 10
       dmg: 2
+  rarity: 4
 bone:
   name: bone
   color: pearl
@@ -59,6 +63,7 @@ bone:
     armor:
       pwr: 5
       res: 10
+  rarity: 2
 blackiron:
   name: blackiron
   color: pearl
@@ -90,3 +95,4 @@ blackiron:
       res: 10
       pwr: -20
       wil: -20
+  rarity: 1

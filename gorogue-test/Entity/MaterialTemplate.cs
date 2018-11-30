@@ -3,6 +3,7 @@ using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 using System.Collections.Generic;
 using System.IO;
+using GoRogueTest.RNG;
 
 namespace GoRogueTest.Entity
 {
@@ -32,12 +33,13 @@ namespace GoRogueTest.Entity
       public int Dmg{get; set;}
     }
 
-    public class MaterialTemplate
+    public class MaterialTemplate: IRarity
     {
       public string Name {get; set;}
       public string Color{get; set;}
       public int Hardness{get; set;}
       public Dictionary<string, Stats> Stats {get; set;}
+      public int Rarity{get; set;}
     }
   }
 }

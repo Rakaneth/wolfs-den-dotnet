@@ -3,6 +3,7 @@ using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 using System.Collections.Generic;
 using System.IO;
+using GoRogueTest.RNG;
 
 namespace GoRogueTest.Entity
 {
@@ -20,13 +21,15 @@ namespace GoRogueTest.Entity
       }
     }
 
-    public class RaceTemplate
+    public class RaceTemplate: IRarity
     {
       public string Desc {get; set;}
       public Stats BaseStats {get; set;}
       public List<string> StartItems {get; set;}
       public string Info {get; set;}
+      public int Rarity{get; set;}
     }
+    
 
     public class Stats
     {

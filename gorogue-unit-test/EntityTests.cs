@@ -4,6 +4,7 @@ using Xunit.Abstractions;
 using GoRogueTest.Entity;
 using GoRogueTest.RNG;
 using GoRogue.Random;
+using System.Collections.Generic;
 
 namespace GoRogueTest.UnitTests
 {
@@ -92,7 +93,27 @@ namespace GoRogueTest.UnitTests
         output.WriteLine($"Shuffled list [{i+1}]: {string.Join(',', list)}");
       }
     }
+
+    [Theory]
+    [InlineData(3)]
+    public void TestRarity(int tries)
+    {
+      for (int i=0; i<tries; i++)
+      {
+        var equip = RNGUtils.GetByRarity(EquipTemplates.templates);
+        var race = RNGUtils.GetByRarity(RaceTemplates.templates);
+        var material = RNGUtils.GetByRarity(MaterialTemplates.templates);
+        string divider = "-----";
+        output.WriteLine(divider);
+        output.WriteLine($"Equip choice: {equip.Name}");
+        output.WriteLine($"Race choice: {race.Desc}");
+        output.WriteLine($"Material Choice: {material.Name}");
+        output.WriteLine(divider);
+      }
+    }
   }
+
+
 
   
 }

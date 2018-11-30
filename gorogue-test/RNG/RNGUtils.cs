@@ -24,5 +24,22 @@ namespace GoRogueTest.RNG
         list.Swap(i, roll);
       }
     }
+
+    
+    public static T GetByRarity<T>(IDictionary<string, T> dict)
+    {
+      var tbl = new ProbabilityTable<string>();
+      foreach (var cand in dict)
+      {
+        var castValue = cand.Value as IRarity;
+        if (castValue == null)
+        {
+          throw new System.Exception("Values of dict are not IRarity");
+        }
+        tbl.Add(cand.Key, castValue.Rarity);
+      }
+      var result = tbl.Get();
+      return dict[result];
+    }
   }
 }

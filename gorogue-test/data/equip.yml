@@ -62,6 +62,7 @@ axe: &baseAxe
   equipType: axe
   tags:
     - weapon
+  rarity: 5
 sword: &baseSword
   name: <material> sword
   desc: A shortsword made from <material>.
@@ -75,6 +76,7 @@ sword: &baseSword
   equipType: sword
   tags:
     - weapon
+  rarity: 5
 staff: &baseStaff
   name: <material> staff
   desc: A long staff made from <material>.
@@ -89,6 +91,7 @@ staff: &baseStaff
   equipType: staff
   tags:
     - weapon
+  rarity: 2
 rapier: &baseRapier
   name: <material> rapier
   desc: A thin rapier made from <material>.
@@ -102,3 +105,4 @@ rapier: &baseRapier
   equipType: rapier
   tags:
     - weapon
+  rarity: 3
