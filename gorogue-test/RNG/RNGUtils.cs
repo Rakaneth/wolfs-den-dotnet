@@ -14,8 +14,12 @@ namespace GoRogueTest.RNG
       list[idxB] = tmp;
     }
 
-    public static void Shuffle<T>(this IList<T> list, IGenerator rng)
+    public static void Shuffle<T>(this IList<T> list, IGenerator rng = null)
     {
+      if (rng == null)
+      {
+        rng = GoRogue.Random.SingletonRandom.DefaultRNG;
+      }
       int max = list.Count - 1;
       int roll;
       for (int i=0; i<max; i++)

@@ -13,7 +13,8 @@ namespace GoRogueTest.Map
     UPSTAIRS,
     DOWNSTAIRS,
     DEEPWATER,
-    SHALLOWWATER
+    SHALLOWWATER,
+    NULL
   }
 
   public struct TileInfo
@@ -41,7 +42,8 @@ namespace GoRogueTest.Map
       [Tile.UPSTAIRS] = new TileInfo('<'),
       [Tile.DOWNSTAIRS] = new TileInfo('>'),
       [Tile.DEEPWATER] = new TileInfo('~', false, false),
-      [Tile.SHALLOWWATER] = new TileInfo('~')
+      [Tile.SHALLOWWATER] = new TileInfo('~'),
+      [Tile.NULL] = new TileInfo(0, false, false)
     };
 
     public static TileInfo GetInfo(Tile tile) => data[tile];

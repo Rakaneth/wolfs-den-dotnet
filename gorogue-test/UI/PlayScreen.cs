@@ -54,7 +54,7 @@ namespace GoRogueTest.UI
 
     private SadConsole.Entities.Entity cursor;
     private SadConsole.Entities.EntityManager em = new SadConsole.Entities.EntityManager();
-    private ArrayMap<Tile> tiles; //TODO: Game state
+    private TileMap tiles; //TODO: Game state
     private bool gameStarted = false;
     #region Constructors
     public PlayScreen(): base("play") {}
@@ -109,9 +109,7 @@ namespace GoRogueTest.UI
     {
       if (!gameStarted)
       {
-        tiles = new ArrayMap<Tile>(50, 50);
-        var convert = new SetTileMapTranslator(tiles);
-        GoRogue.MapGeneration.Generators.RectangleMapGenerator.Generate(convert);
+        tiles = MapGenerators.Uniform(85, 85);
         gameStarted = true;
         UpdateMap();
       }
@@ -149,9 +147,9 @@ namespace GoRogueTest.UI
 
     private void UpdateMap()
     {
-      foreach (var pos in tiles.Positions())
+      foreach (var pos in tiles.Positions)
       {
-        var info = TileData.GetInfo(tiles[pos.X, pos.Y]);
+        var info = tiles.GetInfo(pos);
         map.Cells[pos.ToIndex(map.Width)] = new Cell(Color.White, Color.Black, info.Glyph);
       }
     }
