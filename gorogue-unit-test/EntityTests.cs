@@ -7,6 +7,7 @@ using GoRogue.Random;
 using GoRogueTest.Map;
 using GoRogue.MapGeneration.Generators;
 using System.Collections.Generic;
+using GoRogue.MapViews;
 
 namespace GoRogueTest.UnitTests
 {
@@ -117,7 +118,7 @@ namespace GoRogueTest.UnitTests
 
   public class MapTests
   {
-    private TileMap map = new TileMap(30, 30);
+    private ArrayMap<Tile> map = new ArrayMap<Tile>(30, 30);
     private readonly ITestOutputHelper output;
 
     public MapTests(ITestOutputHelper output)

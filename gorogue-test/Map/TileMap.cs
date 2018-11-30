@@ -1,12 +1,9 @@
+using GoRogue;
 using GoRogue.MapViews;
+using System.Collections.Generic;
 
 namespace GoRogueTest.Map
 {
-  public class TileMap: ArrayMap<Tile>
-  {
-    public TileMap(int width, int height): base(width, height) {}
-  }
-
   public class VisibleTileMapTranslator: TranslationMap<Tile, bool>
   {
     public VisibleTileMapTranslator(IMapView<Tile> baseMap): base(baseMap) {}

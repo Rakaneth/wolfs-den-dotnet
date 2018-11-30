@@ -1,5 +1,11 @@
 using SadConsole;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using System;
+using GoRogueTest.Map;
+using GoRogue;
+using GoRogue.MapGeneration;
+using GoRogue.MapViews;
 
 namespace GoRogueTest.UI
 {
@@ -27,24 +33,29 @@ namespace GoRogueTest.UI
     private const int INFOY = 31;
     #endregion
     #region Consoles
-    private Console map = new Console(MAPFULLW, MAPFULLH)
+    private SadConsole.Console map = new SadConsole.Console(MAPFULLW, MAPFULLH)
     {
       Position = new Point(0, 0),
-      ViewPort = new Rectangle(0, 0, MAPW, MAPH)
+      ViewPort = new Microsoft.Xna.Framework.Rectangle(0, 0, MAPW, MAPH)
     };
     private ControlsConsole stats = new ControlsConsole(STATW, STATH)
     {
       Position = new Point(STATX, STATY)
     };
-    private Console msgs = new Console(MSGW, MSGH)
+    private SadConsole.Console msgs = new SadConsole.Console(MSGW, MSGH)
     {
       Position = new Point(MSGX, MSGY)
     };
-    private Console info = new Console(INFOW, INFOH)
+    private SadConsole.Console info = new SadConsole.Console(INFOW, INFOH)
     {
       Position = new Point(INFOX, INFOY),
     };
     #endregion
+
+    private SadConsole.Entities.Entity cursor;
+    private SadConsole.Entities.EntityManager em = new SadConsole.Entities.EntityManager();
+    private ArrayMap<Tile> tiles; //TODO: Game state
+    private bool gameStarted = false;
     #region Constructors
     public PlayScreen(): base("play") {}
     #endregion
@@ -54,11 +65,11 @@ namespace GoRogueTest.UI
       InitStats();
       InitMsgs();
       InitInfo();
+      InitCursor();
     }
     #region InitExtensions
     private void InitMap()
     {
-      map.FillWithRandomGarbage();
       Children.Add(map);
     }
 
@@ -78,12 +89,71 @@ namespace GoRogueTest.UI
       UIUtils.border(info, "Info");
       Children.Add(info);
     }
+
+    private void InitCursor()
+    {
+      var anim = new SadConsole.Surfaces.Animated("cursor", 1, 1);
+      var frame = anim.CreateFrame();
+      frame[0].Glyph = 'X';
+      frame[0].Foreground = Color.Yellow;
+      frame[0].Background = Color.Transparent;
+      cursor = new SadConsole.Entities.Entity(anim);
+      cursor.Position = new Point(0, 0);
+      em.Entities.Add(cursor);
+      map.Children.Add(em);
+    }
+    #endregion
+
+    #region Enter-Exit
+    public override void enter()
+    {
+      if (!gameStarted)
+      {
+        tiles = new ArrayMap<Tile>(50, 50);
+        var convert = new SetTileMapTranslator(tiles);
+        GoRogue.MapGeneration.Generators.RectangleMapGenerator.Generate(convert);
+        gameStarted = true;
+        UpdateMap();
+      }
+      base.enter();
+    }
     #endregion
     #region KeyHandler
     public override void HandleKeys()
     {
-      //TODO: implementation
+      //TODO: Better pattern
+      var keys = SadConsole.Global.KeyboardState;
+      if (keys.IsKeyPressed(Keys.Left))
+      {
+        cursor.Position += new Point(-1, 0);
+      }
+      else if (keys.IsKeyPressed(Keys.Right))
+      {
+        cursor.Position += new Point(1, 0);
+      }
+      else if (keys.IsKeyPressed(Keys.Up))
+      {
+        cursor.Position += new Point(0, -1);
+      }
+      else if (keys.IsKeyPressed(Keys.Down))
+      {
+        cursor.Position += new Point(0, 1);
+      }
+      else
+      {
+        //do nothing
+      }
+      map.CenterViewPortOnPoint(cursor.Position);
     }
     #endregion
+
+    private void UpdateMap()
+    {
+      foreach (var pos in tiles.Positions())
+      {
+        var info = TileData.GetInfo(tiles[pos.X, pos.Y]);
+        map.Cells[pos.ToIndex(map.Width)] = new Cell(Color.White, Color.Black, info.Glyph);
+      }
+    }
   }
 }
