@@ -17,15 +17,6 @@ namespace GoRogueTest.RNG
 
     private int _totalWeights => _tbl.Sum(s => s.Value);
 
-    private IGenerator _rng;
-
-    public ProbabilityTable(IGenerator generator)
-    {
-      _rng = generator;
-    }
-
-    public ProbabilityTable() : this(SingletonRandom.DefaultRNG) {}
-
     public void Add(T item, int weight)
     {
       _tbl.Add(item, weight);
@@ -38,7 +29,7 @@ namespace GoRogueTest.RNG
 
     public T Get()
     {
-      var roll = _rng.Next(_totalWeights);
+      var roll = World.Instance.RNG.Next(_totalWeights);
       int current = 0;
       T result = _tbl.First().Key;
       foreach (var pair in _tbl)

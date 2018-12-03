@@ -419,7 +419,7 @@ namespace GoRogueTest.UI
       randomBtn.Click += (object snd, EventArgs args) =>
       {
         var clicked = snd as Button;
-        var rng = SingletonRandom.DefaultRNG;
+        var rng = World.Instance.RNG;
         var curSpent = 0;
         if (clicked != null)
         {

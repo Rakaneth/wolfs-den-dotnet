@@ -16,6 +16,7 @@ namespace GoRogueTest
       SadConsole.Game.Create("IBM.font", width, height);
       SadConsole.Game.OnInitialize = Init;
       SadConsole.Game.OnUpdate = Update;
+      World.Create(0xDEADBEEF);
       SadConsole.Game.Instance.Run();
 
       //after game closes

@@ -14,17 +14,13 @@ namespace GoRogueTest.RNG
       list[idxB] = tmp;
     }
 
-    public static void Shuffle<T>(this IList<T> list, IGenerator rng = null)
+    public static void Shuffle<T>(this IList<T> list)
     {
-      if (rng == null)
-      {
-        rng = GoRogue.Random.SingletonRandom.DefaultRNG;
-      }
       int max = list.Count - 1;
       int roll;
       for (int i=0; i<max; i++)
       {
-        roll = rng.Next(i, list.Count);
+        roll = World.Instance.RNG.Next(i, list.Count);
         list.Swap(i, roll);
       }
     }

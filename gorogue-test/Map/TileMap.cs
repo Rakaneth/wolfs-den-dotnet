@@ -12,6 +12,7 @@ namespace GoRogueTest.Map
     public readonly SetTileMapTranslator SetConverter;
     public readonly WalkableTileMapTranslator WalkConverter;
     public readonly VisibleTileMapTranslator SeeConverter;
+    public readonly LightResTileMapDoubleTranslator ResConverter;
     public int Width => _tiles.Width;
     public int Height => _tiles.Height;
     public IEnumerable<Coord> Positions => _tiles.Positions();
@@ -33,6 +34,7 @@ namespace GoRogueTest.Map
       SetConverter = new SetTileMapTranslator(_tiles);
       WalkConverter = new WalkableTileMapTranslator(_tiles);
       SeeConverter = new VisibleTileMapTranslator(_tiles);
+      ResConverter = new LightResTileMapDoubleTranslator(_tiles);
     }
 
     public bool InBounds(int x, int y) => _tiles.Bounds().Contains(x, y);
@@ -70,6 +72,16 @@ namespace GoRogueTest.Map
     }
   }
 
+  public class LightResTileMapDoubleTranslator: TranslationMap<Tile, double>
+  {
+    public LightResTileMapDoubleTranslator(IMapView<Tile> baseMap): base(baseMap){}
+    protected override double TranslateGet(Tile value)
+    {
+      var data = TileData.GetInfo(value);
+      return data.See ? 0.0 : 1.0;
+    }
+  }
+
   public class WalkableTileMapTranslator: TranslationMap<Tile, bool>
   {
     public WalkableTileMapTranslator(IMapView<Tile> baseMap): base(baseMap) {}
@@ -96,4 +108,6 @@ namespace GoRogueTest.Map
       return value ? Tile.FLOOR : Tile.WALL;
     }
   }
+
+  
 }
