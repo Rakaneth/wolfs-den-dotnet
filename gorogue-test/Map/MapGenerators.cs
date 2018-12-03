@@ -26,11 +26,11 @@ namespace GoRogueTest.Map
 
     private MapGenerator() {}
 
-    public TileMap Uniform(int width, int height)
+    public TileMap Uniform(int width, int height, bool isLight=true)
     {
       var baseMap = BoneGen.BoneGen.WallWrap(
         bg.Generate(TilesetType.ROOMS_LIMIT_CONNECTIVITY, height, width));
-      return TileMap.ToTileMap(baseMap);
+      return TileMap.ToTileMap(baseMap, isLight);
     }
   }
 }

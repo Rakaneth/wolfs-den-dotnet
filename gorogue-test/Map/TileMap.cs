@@ -17,6 +17,7 @@ namespace GoRogueTest.Map
     public int Height => _tiles.Height;
     public IEnumerable<Coord> Positions => _tiles.Positions();
     public ISettableMapView<Tile> Tiles => _tiles;
+    public bool light;
     public Tile this[int x, int y]
     {
       get => _tiles[x, y];
@@ -28,11 +29,11 @@ namespace GoRogueTest.Map
       set => this[c.X, c.Y] = value;
     }
 
-    public static TileMap ToTileMap(char[,] boneGenMap)
+    public static TileMap ToTileMap(char[,] boneGenMap, bool isLight=true)
     {
       int w = boneGenMap.GetLength(1);
       int h = boneGenMap.GetLength(0);
-      var newMap = new TileMap(w, h);
+      var newMap = new TileMap(w, h, isLight);
       Tile nextTile;
       for (int y=0; y<h; y++)
       {
@@ -50,14 +51,17 @@ namespace GoRogueTest.Map
       return newMap;
     }
 
-    public TileMap(int width, int height)
+    public TileMap(int width, int height, bool isLight)
     {
       _tiles = new ArrayMap<Tile>(width, height);
       SetConverter = new SetTileMapTranslator(_tiles);
       WalkConverter = new WalkableTileMapTranslator(_tiles);
       SeeConverter = new VisibleTileMapTranslator(_tiles);
       ResConverter = new LightResTileMapDoubleTranslator(_tiles);
+      light = isLight;
     }
+
+    public TileMap(int width, int height): this (width, height, true) {}
 
     public bool InBounds(int x, int y) => _tiles.Bounds().Contains(x, y);
     public bool InBounds(Coord c) => InBounds(c.X, c.Y);

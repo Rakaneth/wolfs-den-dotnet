@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using GoRogueTest.Map;
 using GoRogueTest.Entity;
+using System.Linq;
 
 namespace GoRogueTest
 {
@@ -27,6 +28,10 @@ namespace GoRogueTest
     public string CurMapID;
     public TileMap CurMap => GetMap(CurMapID);
     private IDictionary<string, GameEntity> _things = new Dictionary<string, GameEntity>();
+    public IEnumerable<GameEntity> CurThings
+    {
+      get =>_things.Values.Where(thing => thing.MapID == CurMapID);
+    }
 
 
 
@@ -46,7 +51,10 @@ namespace GoRogueTest
     public TileMap GetMap(string mapID) => _maps[mapID];
     public T GetByID<T>(string eID) where T: GameEntity => _things[eID] as T;
     public void AddMap(string mapID, TileMap map) => _maps[mapID] = map;
-    
-    
+    public void AddEntities(params GameEntity[] things) 
+    {
+      foreach (var thing in things)
+        _things[thing.ID] = thing;
+    }
   }
 }

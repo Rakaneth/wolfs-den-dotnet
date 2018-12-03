@@ -6,6 +6,7 @@ using GoRogueTest.Map;
 using GoRogue;
 using GoRogue.MapGeneration;
 using GoRogue.MapViews;
+using GoRogueTest.Entity;
 
 namespace GoRogueTest.UI
 {
@@ -51,10 +52,7 @@ namespace GoRogueTest.UI
       Position = new Point(INFOX, INFOY),
     };
     #endregion
-
-    private SadConsole.Entities.Entity cursor;
     private SadConsole.Entities.EntityManager em = new SadConsole.Entities.EntityManager();
-    private TileMap tiles; //TODO: Game state
     private bool gameStarted = false;
     #region Constructors
     public PlayScreen(): base("play") {}
@@ -65,7 +63,7 @@ namespace GoRogueTest.UI
       InitStats();
       InitMsgs();
       InitInfo();
-      InitCursor();
+      StartGame();
     }
     #region InitExtensions
     private void InitMap()
@@ -90,68 +88,76 @@ namespace GoRogueTest.UI
       Children.Add(info);
     }
 
-    private void InitCursor()
+    private void StartGame()
     {
+      World.Instance.AddMap("mine", MapGenerator.Instance.Uniform(85, 85));
+      gameStarted = true;
       var anim = new SadConsole.Surfaces.Animated("cursor", 1, 1);
       var frame = anim.CreateFrame();
       frame[0].Glyph = 'X';
       frame[0].Foreground = Color.Yellow;
       frame[0].Background = Color.Transparent;
-      cursor = new SadConsole.Entities.Entity(anim);
-      cursor.Position = new Point(0, 0);
-      em.Entities.Add(cursor);
+      var cursorE = new SadConsole.Entities.Entity(anim);
+      var cursor = new ActorBuilder()
+        .WithEntity(cursorE)
+        .WithPosition(0, 0)
+        .WithName("Test")
+        .WithStartMap("mine")
+        .WithID("Cursor")
+        .Build();
+      
+      World.Instance.AddEntities(cursor);
+      ChangeMap("mine");
       map.Children.Add(em);
+      UpdateMap();
     }
     #endregion
 
-    #region Enter-Exit
-    public override void enter()
-    {
-      if (!gameStarted)
-      {
-        tiles = MapGenerator.Instance.Uniform(85, 85);
-        gameStarted = true;
-        UpdateMap();
-      }
-      base.enter();
-    }
-    #endregion
     #region KeyHandler
     public override void HandleKeys()
     {
       //TODO: Better pattern
       var keys = SadConsole.Global.KeyboardState;
+      var cursor = World.Instance.GetByID<Actor>("Cursor");
       if (keys.IsKeyPressed(Keys.Left))
       {
-        cursor.Position += new Point(-1, 0);
+        cursor.MoveBy(-1, 0);
       }
       else if (keys.IsKeyPressed(Keys.Right))
       {
-        cursor.Position += new Point(1, 0);
+        cursor.MoveBy(1, 0);
       }
       else if (keys.IsKeyPressed(Keys.Up))
       {
-        cursor.Position += new Point(0, -1);
+        cursor.MoveBy(0, -1);
       }
       else if (keys.IsKeyPressed(Keys.Down))
       {
-        cursor.Position += new Point(0, 1);
+        cursor.MoveBy(0, 1);
       }
       else
       {
         //do nothing
       }
-      map.CenterViewPortOnPoint(cursor.Position);
+      map.CenterViewPortOnPoint(cursor.DrawEntity.Position);
     }
     #endregion
 
     private void UpdateMap()
     {
-      foreach (var pos in tiles.Positions)
+      foreach (var pos in World.Instance.CurMap.Positions)
       {
-        var info = tiles.GetInfo(pos);
+        var info = World.Instance.CurMap.GetInfo(pos);
         map.Cells[pos.ToIndex(map.Width)] = new Cell(Color.White, Color.Black, info.Glyph);
       }
+    }
+
+    private void ChangeMap(string mapID)
+    {
+      World.Instance.CurMapID = mapID;
+      em.Entities.RemoveAll();
+      foreach(var thing in World.Instance.CurThings)
+        em.Entities.Add(thing.DrawEntity);
     }
   }
 }

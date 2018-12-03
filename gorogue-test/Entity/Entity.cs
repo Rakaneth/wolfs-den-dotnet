@@ -9,7 +9,16 @@ namespace GoRogueTest.Entity
   {
     public string ID {get;}
     public string Name {get; set;}
-    public Coord Position {get; set;}
+    private Coord _pos;
+    public Coord Position {
+      get => _pos;
+      set
+      {
+        _pos = value;
+        if (DrawEntity != null)
+          DrawEntity.Position = new Microsoft.Xna.Framework.Point(_pos.X, _pos.Y);
+      }
+    }
     public SadConsole.Entities.Entity DrawEntity {get; set;}
     public string MapID {get; set;}
     public TileMap Map => World.Instance.GetMap(MapID);
