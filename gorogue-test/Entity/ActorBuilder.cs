@@ -65,7 +65,10 @@ namespace GoRogueTest.Entity
       _foetus.Name = _name;
       _foetus.DrawEntity = _entity;
       if (_foetus.Map != null)
+      {
         _foetus.SetFOV();
+        _foetus.UpdateFOV();
+      }
       return _foetus;
     }
   }

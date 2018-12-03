@@ -90,7 +90,7 @@ namespace GoRogueTest.UI
 
     private void StartGame()
     {
-      World.Instance.AddMap("mine", MapGenerator.Instance.Uniform(85, 85));
+      World.Instance.AddMap("mine", MapGenerator.Instance.Uniform(85, 85, false));
       gameStarted = true;
       var anim = new SadConsole.Surfaces.Animated("cursor", 1, 1);
       var frame = anim.CreateFrame();
@@ -139,16 +139,37 @@ namespace GoRogueTest.UI
       {
         //do nothing
       }
-      map.CenterViewPortOnPoint(cursor.DrawEntity.Position);
+
+      if (cursor.Moved)
+      {
+        cursor.UpdateFOV();
+        UpdateMap();
+        map.CenterViewPortOnPoint(cursor.DrawEntity.Position);
+        cursor.Update();
+      }
     }
     #endregion
 
     private void UpdateMap()
     {
-      foreach (var pos in World.Instance.CurMap.Positions)
+      var cursor = World.Instance.GetByID<Actor>("Cursor");
+      map.Clear();
+      TileInfo info;
+      if (World.Instance.CurMap.Light)
       {
-        var info = World.Instance.CurMap.GetInfo(pos);
-        map.Cells[pos.ToIndex(map.Width)] = new Cell(Color.White, Color.Black, info.Glyph);
+        foreach (var pos in World.Instance.CurMap.Positions)
+        {
+          info = World.Instance.CurMap.GetInfo(pos);
+          map.Cells[pos.ToIndex(map.Width)] = new Cell(Color.White, Color.Black, info.Glyph);
+        }
+      }
+      else
+      {
+        foreach (var pos in cursor.Visible)
+        {
+          info = World.Instance.CurMap.GetInfo(pos);
+          map.Cells[pos.ToIndex(map.Width)] = new Cell(Color.White, Color.Black, info.Glyph);
+        }
       }
     }
 

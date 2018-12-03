@@ -14,14 +14,18 @@ namespace GoRogueTest.Entity
       get => _pos;
       set
       {
+        _moved = value != _pos;
         _pos = value;
         if (DrawEntity != null)
           DrawEntity.Position = new Microsoft.Xna.Framework.Point(_pos.X, _pos.Y);
+        
       }
     }
     public SadConsole.Entities.Entity DrawEntity {get; set;}
     public string MapID {get; set;}
     public TileMap Map => World.Instance.GetMap(MapID);
+    private bool _moved;
+    public bool Moved => _moved;
 
     public GameEntity(string id)
     {
@@ -29,5 +33,6 @@ namespace GoRogueTest.Entity
     }
 
     public GameEntity() : this(System.Guid.NewGuid().ToString()) {}
+    public void Update() => _moved = false;
   }
 }

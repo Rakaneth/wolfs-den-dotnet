@@ -17,7 +17,7 @@ namespace GoRogueTest.Map
     public int Height => _tiles.Height;
     public IEnumerable<Coord> Positions => _tiles.Positions();
     public ISettableMapView<Tile> Tiles => _tiles;
-    public bool light;
+    public bool Light {get; set;}
     public Tile this[int x, int y]
     {
       get => _tiles[x, y];
@@ -58,7 +58,7 @@ namespace GoRogueTest.Map
       WalkConverter = new WalkableTileMapTranslator(_tiles);
       SeeConverter = new VisibleTileMapTranslator(_tiles);
       ResConverter = new LightResTileMapDoubleTranslator(_tiles);
-      light = isLight;
+      Light = isLight;
     }
 
     public TileMap(int width, int height): this (width, height, true) {}
