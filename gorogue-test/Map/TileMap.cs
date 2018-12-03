@@ -28,6 +28,28 @@ namespace GoRogueTest.Map
       set => this[c.X, c.Y] = value;
     }
 
+    public static TileMap ToTileMap(char[,] boneGenMap)
+    {
+      int w = boneGenMap.GetLength(1);
+      int h = boneGenMap.GetLength(0);
+      var newMap = new TileMap(w, h);
+      Tile nextTile;
+      for (int y=0; y<h; y++)
+      {
+        for (int x=0; x<w; x++)
+        {
+          switch(boneGenMap[y, x])
+          {
+            case '#': nextTile = Tile.WALL; break;
+            case '.': nextTile = Tile.FLOOR; break;
+            default: nextTile = Tile.WALL; break;
+          }
+          newMap[x, y] = nextTile;
+        }
+      }
+      return newMap;
+    }
+
     public TileMap(int width, int height)
     {
       _tiles = new ArrayMap<Tile>(width, height);

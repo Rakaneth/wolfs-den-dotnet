@@ -6,13 +6,14 @@ using GoRogue.MapGeneration;
 using Troschuetz.Random;
 using System;
 using GoRogue.MapViews;
+using BoneGen;
 
 namespace GoRogueTest.Map
 {
   public class MapGenerator
   {
     private static MapGenerator _instance;
-    private IGenerator _rng = SingletonRandom.DefaultRNG;
+    private readonly BoneGen.BoneGen bg = new BoneGen.BoneGen();
     public static MapGenerator Instance
     {
       get 
@@ -25,11 +26,11 @@ namespace GoRogueTest.Map
 
     private MapGenerator() {}
 
-    private void carve(ISettableMapView<Tile> map, Rectangle rect)
+    public TileMap Uniform(int width, int height)
     {
-      
+      var baseMap = BoneGen.BoneGen.WallWrap(
+        bg.Generate(TilesetType.ROOMS_LIMIT_CONNECTIVITY, height, width));
+      return TileMap.ToTileMap(baseMap);
     }
-
-
   }
 }

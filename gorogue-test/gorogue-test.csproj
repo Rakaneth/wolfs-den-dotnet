@@ -16,6 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="BoneGen">
+      <HintPath>..\lib\BoneGen\BoneGen.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="IBM.font">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

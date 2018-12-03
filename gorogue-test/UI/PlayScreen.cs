@@ -109,7 +109,7 @@ namespace GoRogueTest.UI
     {
       if (!gameStarted)
       {
-        tiles = MapGenerators.BSP(85, 85);
+        tiles = MapGenerator.Instance.Uniform(85, 85);
         gameStarted = true;
         UpdateMap();
       }
