@@ -52,6 +52,12 @@ namespace GoRogueTest.Map
     }
 
     public TileInfo GetInfo(Coord c) => GetInfo(c.X, c.Y);
+
+    public void GetRooms()
+    {
+      var finder = new MapAreaFinder(SeeConverter, AdjacencyRule.CARDINALS);
+      _rooms = new List<IReadOnlyMapArea>(finder.MapAreas());
+    }
   }
   public class VisibleTileMapTranslator: TranslationMap<Tile, bool>
   {

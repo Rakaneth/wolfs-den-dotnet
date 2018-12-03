@@ -6,6 +6,7 @@ using System;
 using GoRogueTest.Entity;
 using System.Collections.Generic;
 using System.Linq;
+using GoRogue.Random;
 
 namespace GoRogueTest.UI
 {
@@ -261,9 +262,14 @@ namespace GoRogueTest.UI
       };
       var finishBtn = new Button(12, 1)
       {
-        Position = new Point(85, 1),
+        Position = new Point(85, 2),
         Text = "Finished",
         IsEnabled = false
+      };
+      var randomBtn = new Button(7, 1)
+      {
+        Position = new Point(85, 1),
+        Text = "Random"
       };
 
       ScrollBar[] sbs = new ScrollBar[] {
@@ -409,6 +415,30 @@ namespace GoRogueTest.UI
           UIManager.setScreen("play");
         }
       };
+
+      randomBtn.Click += (object snd, EventArgs args) =>
+      {
+        var clicked = snd as Button;
+        var rng = SingletonRandom.DefaultRNG;
+        var curSpent = 0;
+        if (clicked != null)
+        {
+          int roll;
+          foreach (var bar in sbs)
+          {
+            if (curSpent < 20)
+            {
+              bar.Value = 0;
+              roll = rng.Next(1, 11);
+              roll = Math.Min(roll, 20 - curSpent);
+              curSpent += roll;
+              bar.Value = roll;        
+            }
+            else
+              bar.Value = 0;    
+          }
+        }
+      };
       UIUtils.AddRange(
         stats, 
         spentStr,
@@ -424,6 +454,7 @@ namespace GoRogueTest.UI
         sagLabel,
         smtLabel,
         resetBtn,
+        randomBtn,
         finishBtn
       );
       stats.Position = new Point(STATX, STATY);
