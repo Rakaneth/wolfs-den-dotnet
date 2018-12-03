@@ -44,6 +44,7 @@ namespace GoRogueTest.UnitTests
     public RandomTests(ITestOutputHelper output)
     {
       this.output = output;
+      World.Create(0xDEADBEEF);
     }
 
     [Theory(Skip="Run manually")]
@@ -92,12 +93,12 @@ namespace GoRogueTest.UnitTests
       
       for (int i=0; i<tries; i++)
       {
-        list.Shuffle(SingletonRandom.DefaultRNG);
+        list.Shuffle();
         output.WriteLine($"Shuffled list [{i+1}]: {string.Join(',', list)}");
       }
     }
 
-    [Theory(Skip="Run manually")]
+    [Theory/*(Skip="Run manually")*/]
     [InlineData(3)]
     public void TestRarity(int tries)
     {
