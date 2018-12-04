@@ -2,6 +2,7 @@ using System;
 using GoRogue;
 using SadConsole;
 using GoRogueTest.Map;
+using System.Collections.Generic;
 
 namespace GoRogueTest.Entity
 {
@@ -9,6 +10,7 @@ namespace GoRogueTest.Entity
   {
     public string ID {get;}
     public string Name {get; set;}
+    public string Desc{get; set;}
     private Coord _pos;
     public Coord Position {
       get => _pos;
@@ -26,6 +28,7 @@ namespace GoRogueTest.Entity
     public TileMap Map => World.Instance.GetMap(MapID);
     private bool _moved;
     public bool Moved => _moved;
+    protected readonly List<string> _tags = new List<string>();
 
     public GameEntity(string id)
     {
@@ -34,5 +37,8 @@ namespace GoRogueTest.Entity
 
     public GameEntity() : this(System.Guid.NewGuid().ToString()) {}
     public void Update() => _moved = false;
+    public bool HasTag(string tag) => _tags.Contains(tag);
+    public void AddTag(string tag) => _tags.Add(tag);
+    public void RemoveTag(string tag) => _tags.Remove(tag);
   }
 }

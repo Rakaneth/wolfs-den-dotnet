@@ -12,7 +12,7 @@ oak:
   rarity: 3
 iron:
   name: iron
-  color: dark blue
+  color: iron
   hardness: 20
   stats:
     sword:
@@ -53,7 +53,7 @@ steel:
   rarity: 4
 bone:
   name: bone
-  color: pearl
+  color: ivory
   hardness: 5
   stats:
     sword:
@@ -66,7 +66,7 @@ bone:
   rarity: 2
 blackiron:
   name: blackiron
-  color: pearl
+  color: violet
   hardness: 40
   stats:
     sword:

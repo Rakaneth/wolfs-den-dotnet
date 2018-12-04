@@ -2,6 +2,7 @@ using SadConsole;
 using SadConsole.Surfaces;
 using SadConsole.Controls;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 
 namespace GoRogueTest.UI
@@ -38,5 +39,19 @@ namespace GoRogueTest.UI
     {
       return val > 1 ? word + "s" : word;
     }
+
+    public static Dictionary<string, Color> Swatch = new Dictionary<string, Color>
+    {
+      ["iron"] = Color.DarkBlue,
+      ["crimson"] = Color.Crimson,
+      ["green"] = Color.Green,
+      ["cyan"] = Color.Cyan,
+      ["goldenrod"] = Color.Goldenrod,
+      ["brown"] = Color.Brown,
+      ["gray"] = Color.Gray,
+      ["grey"] = Color.Gray,
+      ["ivory"] = Color.Ivory,
+      ["violet"] = Color.Violet,
+    };
   }    
 }

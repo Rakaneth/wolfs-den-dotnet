@@ -106,3 +106,28 @@ rapier: &baseRapier
   tags:
     - weapon
   rarity: 3
+hands: &naturalWeapon
+  name: bare hands
+  desc: Bare hands.
+  slot: weapon
+  stats:
+    dmg: 1
+  damageType: blunt
+  equipType: natural
+  tags: 
+    - weapon
+    - natural
+claws:
+  <<: *naturalWeapon
+  name: claws
+  desc: Sharp claws.
+  stats:
+    dmg: 2
+  damageType: slash
+fangs:
+  <<: *naturalWeapon
+  name: fangs
+  desc: Long fangs.
+  stats:
+    dmg: 2
+  damageType: pierce
