@@ -3,6 +3,7 @@ using GoRogue.Random;
 using GoRogue.MapGeneration.Connectors;
 using System.Collections.Generic;
 using GoRogue.MapGeneration;
+using GoRogue.MapGeneration.Generators;
 using Troschuetz.Random;
 using System;
 using GoRogue.MapViews;
@@ -31,6 +32,13 @@ namespace GoRogueTest.Map
       var baseMap = BoneGen.BoneGen.WallWrap(
         bg.Generate(TilesetType.ROOMS_LIMIT_CONNECTIVITY, height, width));
       return TileMap.ToTileMap(baseMap, isLight);
+    }
+
+    public TileMap Caves(int width, int height, bool isLight = true)
+    {
+      var baseMap = BoneGen.BoneGen.WallWrap(
+        bg.Generate(TilesetType.CORNER_CAVES, height, width));
+      return TileMap.ToTileMap(baseMap, false);
     }
   }
 }

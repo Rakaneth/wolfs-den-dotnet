@@ -90,7 +90,7 @@ namespace GoRogueTest.UI
 
     private void StartGame()
     {
-      World.Instance.AddMap("mine", MapGenerator.Instance.Uniform(85, 85, false));
+      World.Instance.AddMap("mine", MapGenerator.Instance.Caves(85, 85, false));
       gameStarted = true;
       var anim = new SadConsole.Surfaces.Animated("cursor", 1, 1);
       var frame = anim.CreateFrame();
