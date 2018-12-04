@@ -1,3 +1,5 @@
+#undef MAIN
+
 using System;
 using Xunit;
 using Xunit.Abstractions;
@@ -136,6 +138,26 @@ namespace GoRogueTest.UnitTests
       output.WriteLine(map[1, 1].ToString());
       Assert.False(transMap[0, 0]);
       Assert.True(transMap[1, 1]);
+    }
+  }
+
+  public class EquipTests
+  {
+    private readonly ITestOutputHelper output;
+
+    public EquipTests(ITestOutputHelper output)
+    {
+      this.output = output;
+    }
+
+    [Fact]
+    public void TestBaseEquip()
+    {
+      var ironAxe = new Equipment("axe", "iron");
+      output.WriteLine(ironAxe.Desc);
+      Assert.Equal(12, ironAxe.Dmg);
+      Assert.Equal("iron axe", ironAxe.Name);
+      Assert.Throws<System.Exception>(() => new Equipment("axe", "bone"));
     }
   }
 }

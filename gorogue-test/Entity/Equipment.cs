@@ -37,42 +37,81 @@ namespace GoRogueTest.Entity
   {
     public bool Equipped{get; set;}
     public EquipSlot Slot{get;}
-    public int Atp {get;}
-    public int Dfp{get;}
-    public int Dmg{get;}
-    public int Tou{get;}
-    public int Res{get;}
-    public int Pwr{get;}
-    public int Edr{get;}
-    public int Wil{get;}
+    public int Atp {get; private set;}
+    public int Dfp{get; private set;}
+    public int Dmg{get; private set;}
+    public int Tou{get; private set;}
+    public int Res{get; private set;}
+    public int Pwr{get; private set;}
+    public int Edr{get; private set;}
+    public int Wil{get; private set;}
+    public int Hardness{get; private set;}
+    public EquipType EquipType{get;}
 
-    public Equipment(EquipTemplates.EquipTemplate template, string id=null): base(id)
+    public Equipment(
+      EquipTemplates.EquipTemplate eqpTemp, 
+      MaterialTemplates.MaterialTemplate matTemp=null, 
+      string id=null): base(id)
     {
       Equipped = false;
-      Slot = template.Slot;
-      Name = template.Name;
-      Desc = template.Desc;
-      Atp = template.Stats.Atp;
-      Dfp = template.Stats.Dfp;
-      Dmg = template.Stats.Dmg;
-      Tou = template.Stats.Tou;
-      Res = template.Stats.Res;
-      Pwr = template.Stats.Pwr;
-      Edr = template.Stats.Edr;
-      Wil = template.Stats.Wil;
-
+      Slot = eqpTemp.Slot;
+      Desc = eqpTemp.Desc;
+      Atp = eqpTemp.Stats.Atp;
+      Dfp = eqpTemp.Stats.Dfp;
+      Dmg = eqpTemp.Stats.Dmg;
+      Tou = eqpTemp.Stats.Tou;
+      Res = eqpTemp.Stats.Res;
+      Pwr = eqpTemp.Stats.Pwr;
+      Edr = eqpTemp.Stats.Edr;
+      Wil = eqpTemp.Stats.Wil;
+      Name = eqpTemp.Name;
+      EquipType = eqpTemp.EquipType;
+      
+      if (eqpTemp.Material && (matTemp?.Stats.ContainsKey(eqpTemp.EquipType) ?? false))
+        applyMaterial(matTemp);
+      else if (eqpTemp.Material)
+      {
+        throw new System.Exception(
+          $"{eqpTemp.Name} must be made of something but can't be made of {matTemp.Name}");   
+      }
+        
+      #if MAIN
       var anim = new Animated(ID, 1, 1);
       var frame = anim.CreateFrame();
-      frame[0].Glyph = template.Glyph;
-      if (template.Color == null)
-        frame[0].Foreground = Swatch[template.Color];
+      frame[0].Glyph = eqpTemp.Glyph;
+      
+      if (eqpTemp.Color != null)
+        frame[0].Foreground = Swatch[eqpTemp.Color];
+      else if (matTemp?.Color != null)
+        frame[0].Foreground = Swatch[matTemp.Color];
       else
         frame[0].Foreground = Color.White;
+
       frame[0].Background = Color.Transparent;
       DrawEntity = new SadConsole.Entities.Entity(anim);
+      #endif
     }
 
-    public Equipment(string tempID, string itemID=null)
-      : this(EquipTemplates.templates[tempID], itemID) {} //Test
+    public Equipment(string tempID, string matID, string itemID=null)
+      : this(
+        EquipTemplates.templates[tempID], 
+        MaterialTemplates.templates[matID],
+        itemID) {} //Test
+    
+    private void applyMaterial(MaterialTemplates.MaterialTemplate matTemp)
+    {
+        var stats = matTemp.Stats[EquipType];
+        Name = $"{matTemp.Name} {Name}";
+        Desc = Desc.Replace("<material>", matTemp.Name);
+        Atp += stats.Atp;
+        Dfp += stats.Dfp;
+        Dmg += stats.Dmg;
+        Tou += stats.Tou;
+        Res += stats.Res;
+        Pwr += stats.Pwr;
+        Edr += stats.Edr;
+        Wil += stats.Wil;
+        Hardness = matTemp.Hardness;
+    }
   }
 }

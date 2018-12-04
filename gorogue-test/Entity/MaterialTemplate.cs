@@ -31,6 +31,7 @@ namespace GoRogueTest.Entity
       public int Pwr{get; set;}
       public int Wil{get; set;}
       public int Dmg{get; set;}
+      public int Edr{get; set;}
     }
 
     public class MaterialTemplate: IRarity
@@ -38,7 +39,7 @@ namespace GoRogueTest.Entity
       public string Name {get; set;}
       public string Color{get; set;}
       public int Hardness{get; set;}
-      public Dictionary<string, Stats> Stats {get; set;}
+      public Dictionary<EquipType, Stats> Stats {get; set;}
       public int Rarity{get; set;}
     }
   }

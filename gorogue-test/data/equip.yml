@@ -50,7 +50,7 @@ blueMark:
   tags: *dragonSymbol
   color: cyan
 axe: &baseAxe
-  name: <material> axe
+  name: axe
   desc: A large axe made from <material>.
   slot: weapon
   glyph: 0x2F
@@ -64,7 +64,7 @@ axe: &baseAxe
     - weapon
   rarity: 5
 sword: &baseSword
-  name: <material> sword
+  name: sword
   desc: A shortsword made from <material>.
   slot: weapon
   glyph: 0x7C
@@ -78,7 +78,7 @@ sword: &baseSword
     - weapon
   rarity: 5
 staff: &baseStaff
-  name: <material> staff
+  name: staff
   desc: A long staff made from <material>.
   slot: weapon
   glyph: 0xF4
@@ -93,7 +93,7 @@ staff: &baseStaff
     - weapon
   rarity: 2
 rapier: &baseRapier
-  name: <material> rapier
+  name: rapier
   desc: A thin rapier made from <material>.
   slot: weapon
   glyph: 0x19
