@@ -73,6 +73,6 @@ namespace GoRogueTest.Entity
     }
 
     public Equipment(string tempID, string itemID=null)
-      : this(EquipTemplates.templates[tempID], itemID) {}
+      : this(EquipTemplates.templates[tempID], itemID) {} //Test
   }
 }
