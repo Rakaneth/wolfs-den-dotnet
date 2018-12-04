@@ -10,6 +10,7 @@ namespace GoRogueTest.Entity
     private string _name;
     private string _id;
     private SadConsole.Entities.Entity _entity;
+    private bool _isPlayer;
 
     public ActorBuilder() {}
 
@@ -48,6 +49,12 @@ namespace GoRogueTest.Entity
       return this;
     }
 
+    public ActorBuilder MakePlayer()
+    {
+      _isPlayer = true;
+      return this;
+    }
+
     public void Reset()
     {
       _startMap = null;
@@ -55,11 +62,12 @@ namespace GoRogueTest.Entity
       _name = null;
       _entity = null;
       _id = null;
+      _isPlayer = false;
     }
 
     public Actor Build()
     {
-      _foetus = new Actor(_id);
+      _foetus = new Actor(_id, _isPlayer);
       _foetus.Position = _startPos;
       _foetus.MapID = _startMap;
       _foetus.Name = _name;

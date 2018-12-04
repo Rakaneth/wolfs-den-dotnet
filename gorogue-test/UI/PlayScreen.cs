@@ -91,7 +91,6 @@ namespace GoRogueTest.UI
     private void StartGame()
     {
       World.Instance.AddMap("mine", MapGenerator.Instance.Caves(85, 85, false));
-      gameStarted = true;
       var anim = new SadConsole.Surfaces.Animated("cursor", 1, 1);
       var frame = anim.CreateFrame();
       frame[0].Glyph = 'X';
@@ -104,12 +103,14 @@ namespace GoRogueTest.UI
         .WithName("Test")
         .WithStartMap("mine")
         .WithID("Cursor")
+        .MakePlayer()
         .Build();
       
       World.Instance.AddEntities(cursor);
       ChangeMap("mine");
       map.Children.Add(em);
       UpdateMap();
+      gameStarted = true;
     }
     #endregion
 
@@ -155,21 +156,18 @@ namespace GoRogueTest.UI
       var cursor = World.Instance.GetByID<Actor>("Cursor");
       map.Clear();
       TileInfo info;
-      if (World.Instance.CurMap.Light)
+      foreach (var pos in World.Instance.CurMap.Positions)
       {
-        foreach (var pos in World.Instance.CurMap.Positions)
-        {
-          info = World.Instance.CurMap.GetInfo(pos);
-          map.Cells[pos.ToIndex(map.Width)] = new Cell(Color.White, Color.Black, info.Glyph);
-        }
-      }
-      else
-      {
-        foreach (var pos in cursor.Visible)
-        {
-          info = World.Instance.CurMap.GetInfo(pos);
-          map.Cells[pos.ToIndex(map.Width)] = new Cell(Color.White, Color.Black, info.Glyph);
-        }
+        info = World.Instance.CurMap.GetInfo(pos);
+        Cell curCell = null;
+        
+        if (World.Instance.CurMap.Light || cursor.CanSee(pos))
+          curCell = new Cell(Color.White, Color.Black, info.Glyph);
+        else if (World.Instance.CurMap.IsExplored(pos))
+          curCell = new Cell(Color.Gray, Color.Black, info.Glyph);
+        
+        if (curCell != null)
+          map.Cells[pos.ToIndex(map.Width)] = curCell;
       }
     }
 

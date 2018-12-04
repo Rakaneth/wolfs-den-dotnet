@@ -8,6 +8,7 @@ namespace GoRogueTest.Map
   public class TileMap
   {
     private ArrayMap<Tile> _tiles;
+    private bool[,] explored;
     public List<IReadOnlyMapArea> _rooms;
     public readonly SetTileMapTranslator SetConverter;
     public readonly WalkableTileMapTranslator WalkConverter;
@@ -59,6 +60,7 @@ namespace GoRogueTest.Map
       SeeConverter = new VisibleTileMapTranslator(_tiles);
       ResConverter = new LightResTileMapDoubleTranslator(_tiles);
       Light = isLight;
+      explored = new bool[width, height];
     }
 
     public TileMap(int width, int height): this (width, height, true) {}
@@ -86,6 +88,12 @@ namespace GoRogueTest.Map
       var finder = new MapAreaFinder(SeeConverter, AdjacencyRule.CARDINALS);
       _rooms = new List<IReadOnlyMapArea>(finder.MapAreas());
     }
+
+    public bool IsExplored(int x, int y) => explored[x, y];
+    public bool IsExplored(Coord c) => IsExplored(c.X, c.Y);
+    public void Explore(int x, int y) => explored[x, y] = true;
+    public void Explore(Coord c) => Explore(c.X, c.Y);
+    public void Forget() => explored = new bool[Width, Height];
   }
   public class VisibleTileMapTranslator: TranslationMap<Tile, bool>
   {
