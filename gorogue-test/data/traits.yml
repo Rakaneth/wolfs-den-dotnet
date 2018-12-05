@@ -1,0 +1,96 @@
+---
+brawny:
+  desc: Brawny
+  type: general
+  info: Whether laborer or warrior, you are known for your great brawn.
+  bonusStats:
+    str: 5
+stout:
+  desc: Stout
+  type: general
+  info: You are stalwart and stout, able to endure the worst.
+  bonusStats:
+    stam: 5
+fleet:
+  desc: Fleet
+  type: general
+  info: You are fleet of foot, known for your quick pace.
+  bonusStats:
+    spd: 5
+skillful:
+  desc: Skillful
+  type: general
+  info: You are skilled and quick of hand, known for your expertise.
+  bonusStats:
+    skl: 5
+wise:
+  desc: Wise
+  type: general
+  info: You are wise beyond your years, insightful and perceptive.
+  bonusStats:
+    sag: 5
+educated:
+  desc: Educated
+  type: general
+  info: Whether through a tutor or self-taught, you are well-educated.
+  bonusStats:
+    smt: 5
+whitespeaker:
+  desc: Ilma-speaker
+  type: profession
+  info: The Dragonspeakers of Keldun worship one of five primal dragons. Ilma-speakers follow Il'ma'to'ee'rey, the feral, mighty white dragon of ice and snow.
+  bonusStats:
+    str: 5
+    smt: -5
+  startEquip: 
+    - whiteMark
+  baseAttack: claws
+blackspeaker:
+  desc: Barma-speaker
+  type: profession
+  info: The Dragonspeakers of Keldun worship one of five primal dragons. Barma-speakers follow Yalakhbarma, the stubborn, cantankerous black dragon of water and poison.
+  bonusStats:
+    sag: 5
+    spd: -5
+  startEquip: 
+    - blackMark
+  baseAttack: claws
+redspeaker:
+  desc: Mekira-speaker
+  type: profession
+  info: The Dragonspeakers of Keldun worship one of five primal dragons. Mekira-speakers follow Xilomekira, the passionate, wrathful red dragon of fire and inspiration.
+  bonusStats:
+    spd: 5
+    sag: -5
+  startEquip:
+    - redMark
+  baseAttack: claws
+bluespeaker:
+  desc: Atara-speaker
+  type: profession
+  info: The Dragonspeakers of Keldun worship one of five primal dragons. Atara-speakers follow Ataramakaris, the cunning, prideful blue dragon of air and knowledge.
+  bonusStats:
+    smt: 5
+    stam: -5
+  startEquip:
+    - blueMark
+  baseAttack: claws
+greenspeaker:
+  desc: Sansa-speaker
+  type: profession
+  info: The Dragonspeakers of Keldun worship one of five primal dragons. Sansa-speakers follow Sansapradava, the beautiful, vain green dragon of earth and nature.
+  bonusStats:
+    skl: 5
+    str: -5
+  startEquip:
+    - greenMark
+  baseAttack: claws
+anoprof:
+  desc: No Profession
+  type: profession
+  info: Perhaps you are a drifter, vagabond, or indolent; you claim no profession or trade. Your fate is what you make of it. You are prepared for that fate, whatever it may be.
+  startEquip:
+    - axe
+    - sword
+    - staff
+    - rapier

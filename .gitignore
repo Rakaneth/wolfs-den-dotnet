@@ -5,3 +5,6 @@
 #outputs
 **/bin/
 **/obj/
+
+#logs
+gorogue-test/log.html

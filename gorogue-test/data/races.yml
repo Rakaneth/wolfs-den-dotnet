@@ -1,0 +1,53 @@
+---
+native:
+  desc: Human of Salaban
+  baseStats: &stats
+    str: 10
+    stam: 10
+    spd: 10
+    skl: 10
+    sag: 10
+    smt: 10
+  startItems: &humanItems
+    - ration
+    - ration
+    - potion
+    - potion
+  info: The humans of the kingdom of Salaban have thrived for the last one hundred years, despite the best efforts of the wild creatures and savage tribes of the Wildlands.
+  rarity: 10
+keldun:
+  desc: Human of Keldun
+  baseStats: *stats
+  startItems: *humanItems
+  info: The humans of Keldun are explorers, adventurers, and conquerors. They colonized the wild lands they named Salaban and continue to expand their borders.
+  rarity: 8
+elf:
+  desc: Elf of Fang Wood
+  baseStats:
+    <<: *stats
+    stam: 5
+    spd: 15
+  startItems: &otherItems
+    - potion
+    - ration
+  info: The elves of the Fang Wood are known for being beautiful and reclusive. It is said that their prince, Edrylan, has never been seen by humans.
+  rarity: 5
+dwarf:
+  desc: Dwarf of Mithril Gate
+  baseStats:
+    <<: *stats
+    stam: 15
+    spd: 5
+  startItems: *otherItems
+  info: The dwarves of Mithril Gate are stalwart warriors, skilled craftsmen, and shrewd merchants. They are often maligned for their greed.
+  rarity: 6
+wolfborn:
+  desc: Wolf-born of the Fang Wood
+  baseStats:
+    <<: *stats
+    str: 15
+    stam: 15
+    smt: 5
+    skl: 5
+  info: The wolf-born of the Fang Wood are fierce defenders of their homeland. With an uneasy truce with the elves, the wolf-born of the Fang Wood rule their territory, demanding tolls of those who come near their wood.
+  rarity: 3
