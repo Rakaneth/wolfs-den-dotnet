@@ -100,7 +100,7 @@ namespace GoRogueTest.UnitTests
       }
     }
 
-    [Theory/*(Skip="Run manually")*/]
+    [Theory(Skip="Run manually")]
     [InlineData(3)]
     public void TestRarity(int tries)
     {
@@ -158,6 +158,34 @@ namespace GoRogueTest.UnitTests
       Assert.Equal(12, ironAxe.Dmg);
       Assert.Equal("iron axe", ironAxe.Name);
       Assert.Throws<System.Exception>(() => new Equipment("axe", "bone"));
+    }
+
+    [Fact]
+    public void TestStats()
+    {
+      var dex = new Stat("Dex", 6);
+      Assert.Equal(6, dex.BaseValue);
+      Assert.Equal(6, dex.Value);
+      var flatRaw = new RawBonus(3);
+      var multRaw = new RawBonus(0, 0.5f);
+      var flatFinal = new FinalBonus(8);
+      var multFinal = new FinalBonus(0, 0.2f);
+      dex.AddRawBonus(flatRaw);
+      Assert.Equal(9, dex.Value);
+      dex.AddRawBonus(multRaw);
+      Assert.Equal(12, dex.Value);
+      dex.AddFinalBonus(flatFinal);
+      Assert.Equal(20, dex.Value);
+      dex.AddFinalBonus(multFinal);
+      Assert.Equal(22, dex.Value);
+      dex.RemoveRawBonus(multRaw);
+      Assert.Equal(18, dex.Value);
+      dex.RemoveFinalBonus(flatFinal);
+      Assert.Equal(10, dex.Value);
+      dex.RemoveRawBonus(flatRaw);
+      Assert.Equal(7, dex.Value);
+      dex.RemoveFinalBonus(multFinal);
+      Assert.Equal(6, dex.Value);
     }
   }
 }
