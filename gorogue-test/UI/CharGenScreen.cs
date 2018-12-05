@@ -76,7 +76,10 @@ namespace GoRogueTest.UI
     protected override void Init() {
       InitRaces();
       InitTraits();
-      InitStats();      
+      InitStats();
+      Logger.Log(LogLevel.ERROR, "Not a real error");
+      Logger.Log(LogLevel.INFO, "Just some info");
+      Logger.Log(LogLevel.WARNING, "Uhoh, something might happen!");
     }
     public override void HandleKeys()
     {
