@@ -38,9 +38,9 @@ namespace GoRogueTest.Entity
     {
       get
       {
-        float acc = BaseValue;
         if (_dirty)
         {
+          float acc = BaseValue;
           int flats = _rawBonuses.Sum(s => s.BaseValue);
           float mults = _rawBonuses.Sum(s => s.Mult);
           int finalFlats = _finalBonuses.Sum(s => s.BaseValue);

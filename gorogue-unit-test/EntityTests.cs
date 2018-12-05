@@ -188,4 +188,17 @@ namespace GoRogueTest.UnitTests
       Assert.Equal(6, dex.Value);
     }
   }
+
+  public class ActorTests
+  {
+    [Fact]
+    public void TestActorBuilder()
+    {
+      Actor wolf = ActorBuilder.FromTemplate("wolf");
+      Assert.Equal("wolf", wolf.Name);
+      Assert.Equal(15, wolf.Strength.Value);
+      Assert.Equal(15, wolf.Speed.Value);
+    }
+
+  }
 }

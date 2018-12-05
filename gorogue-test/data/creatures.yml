@@ -1,0 +1,38 @@
+---
+basePlayer:
+  capacity: 8
+  glyph: 0x40
+baseNPC:
+  capacity: 8
+  rarity: 5
+  glyph: 0x40
+baseCreature: &baseCreature
+  name: No name
+  type: No type
+  desc: No desc
+  unarmed: hands
+  baseStats: &stats
+    str: 10
+    stam: 10
+    spd: 10
+    skl: 10
+    sag: 10
+    smt: 10
+wolf:
+  <<: *baseCreature
+  name: wolf
+  type: wolf
+  desc: A large, grey wolf
+  unarmed: fangs
+  glyph: 0x57
+  color: brown
+  baseStats:
+    <<: *stats
+    str: 15
+    spd: 15
+  tags:
+    - animal
+  enemies:
+    - humanoid
+  rarity: 10
+

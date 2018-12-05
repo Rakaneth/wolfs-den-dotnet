@@ -14,6 +14,14 @@ namespace GoRogueTest.Entity
     WEAPON
   }
 
+  public enum ItemType
+  {
+    ITEM,
+    EQUIP,
+    FOOD,
+    HEALING
+  }
+
   public enum DamageType
   {
     SLASH,
@@ -33,7 +41,7 @@ namespace GoRogueTest.Entity
     NATURAL
   }
 
-  public class Equipment: GameEntity
+  public class Equipment: ItemBase
   {
     public bool Equipped{get; set;}
     public EquipSlot Slot{get;}
@@ -51,7 +59,7 @@ namespace GoRogueTest.Entity
     public Equipment(
       EquipTemplates.EquipTemplate eqpTemp, 
       MaterialTemplates.MaterialTemplate matTemp=null, 
-      string id=null): base(id)
+      string id=null): base(id, ItemType.EQUIP, -1)
     {
       Equipped = false;
       Slot = eqpTemp.Slot;
@@ -113,5 +121,7 @@ namespace GoRogueTest.Entity
         Wil += stats.Wil;
         Hardness = matTemp.Hardness;
     }
+
+    public override void Use(Actor actor) {}
   }
 }

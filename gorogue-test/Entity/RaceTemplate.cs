@@ -17,7 +17,8 @@ namespace GoRogueTest.Entity
         var deser = new DeserializerBuilder()
           .WithNamingConvention(new CamelCaseNamingConvention())
           .Build();
-        templates = deser.Deserialize<Dictionary<string, RaceTemplate>>(new MergingParser(new Parser(input)));
+        templates = deser.Deserialize<Dictionary<string, RaceTemplate>>(
+          new MergingParser(new Parser(input)));
       }
     }
 
@@ -26,6 +27,7 @@ namespace GoRogueTest.Entity
       public string Desc {get; set;}
       public Stats BaseStats {get; set;}
       public List<string> StartItems {get; set;}
+      public List<string> Tags{get; set;}
       public string Info {get; set;}
       public int Rarity{get; set;}
     }

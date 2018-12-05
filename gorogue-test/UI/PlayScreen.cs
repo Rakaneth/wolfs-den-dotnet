@@ -97,12 +97,11 @@ namespace GoRogueTest.UI
       frame[0].Foreground = Color.Yellow;
       frame[0].Background = Color.Transparent;
       var cursorE = new SadConsole.Entities.Entity(anim);
-      var cursor = new ActorBuilder()
+      var cursor = new ActorBuilder("Cursor")
         .WithEntity(cursorE)
         .WithPosition(0, 0)
         .WithName("Test")
         .WithStartMap("mine")
-        .WithID("Cursor")
         .MakePlayer()
         .Build();
       
