@@ -79,8 +79,9 @@ namespace GoRogueTest.Entity
         applyMaterial(matTemp);
       else if (eqpTemp.Material)
       {
+        var matName = matTemp?.Name ?? "nothing";
         throw new System.Exception(
-          $"{eqpTemp.Name} must be made of something but can't be made of {matTemp.Name}");   
+          $"{eqpTemp.Name} must be made of something but can't be made of {matName}");
       }
         
       #if MAIN
@@ -100,10 +101,10 @@ namespace GoRogueTest.Entity
       #endif
     }
 
-    public Equipment(string tempID, string matID, string itemID=null)
+    public Equipment(string tempID, string matID="none", string itemID=null)
       : this(
         EquipTemplates.templates[tempID], 
-        MaterialTemplates.templates[matID],
+        matID == "none" ? null : MaterialTemplates.templates[matID],
         itemID) {} //Test
     
     private void applyMaterial(MaterialTemplates.MaterialTemplate matTemp)

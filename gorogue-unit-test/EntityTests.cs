@@ -154,10 +154,13 @@ namespace GoRogueTest.UnitTests
     public void TestBaseEquip()
     {
       var ironAxe = new Equipment("axe", "iron");
+      var blueMark = new Equipment("blueMark");
       output.WriteLine(ironAxe.Desc);
       Assert.Equal(12, ironAxe.Dmg);
       Assert.Equal("iron axe", ironAxe.Name);
+      Assert.Equal("Mark of Atara", blueMark.Name);
       Assert.Throws<System.Exception>(() => new Equipment("axe", "bone"));
+      Assert.Throws<System.Exception>(() => new Equipment("sword"));
     }
 
     [Fact]
