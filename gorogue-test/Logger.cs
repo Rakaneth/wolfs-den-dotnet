@@ -21,8 +21,8 @@ namespace GoRogueTest
       string style = @"
       <!DOCTYPE html>
       <style>
-        ul:nth-child(even) {background:#CCC}
-        ul:nth-child(odd) {background:#FFF}
+        ul:nth-child(even) {background:#CCC;}
+        ul:nth-child(odd) {background:#FFF;}   
       </style>
       <ul>
       </ul>";
