@@ -21,12 +21,17 @@ namespace GoRogueTest
         using (var sw = new StreamWriter(fs))
         {
           string style = @"
-          <!DOCTYPE html>
-          <style>
-            ul:nth-child(even) {background:#CCC;}
-            ul:nth-child(odd) {background:#FFF;}   
-          </style>
-          <ul>";
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {background: black;}
+      li:nth-child(even) {background:#999;}
+      li:nth-child(odd) {background:#DDD;}   
+    </style>
+  </head>
+  <body>
+  <ul>";
           sw.Write(style);
         }
       }
@@ -56,7 +61,7 @@ namespace GoRogueTest
       {
         using (var sw = new StreamWriter(fs))
         {
-          sw.WriteLine("</ul>");
+          sw.WriteLine("</ul></body></html>");
         }
       }
     }
