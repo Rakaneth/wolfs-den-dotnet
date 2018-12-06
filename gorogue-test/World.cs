@@ -13,6 +13,7 @@ namespace GoRogueTest
   {
     static private World _instance;
     private IGenerator _rng;
+    public GameConfigs Configs {get; private set;}
     static public World Instance
     {
       get
@@ -32,21 +33,31 @@ namespace GoRogueTest
     {
       get =>_things.Values.Where(thing => thing.MapID == CurMapID);
     }
+    
+    static public void Create(uint seed, GameConfigs configs)
+    {
+      _instance = new World(seed, configs);
+    }
 
-
-
+    static public void Create(GameConfigs configs) => _instance = new World(configs);
     static public void Create(uint seed) =>_instance = new World(seed);
     static public void Create() => _instance = new World();
 
-    private World(uint seed) 
+    private World(uint seed, GameConfigs configs) 
     {
       _rng = new XorShift128Generator(seed);
+      Configs = configs;
     }
 
-    private World()
+    private World(uint seed): this(seed, new GameConfigs(logging: true)) {}
+
+    private World(GameConfigs configs)
     {
       _rng = new XorShift128Generator();
+      Configs = configs;
     }
+
+    private World(): this(new GameConfigs(logging: true)) {}
 
     public TileMap GetMap(string mapID) => _maps[mapID];
     public T GetByID<T>(string eID) where T: GameEntity => _things[eID] as T;

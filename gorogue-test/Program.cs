@@ -1,6 +1,4 @@
-﻿#define MAIN
-
-using System;
+﻿using System;
 using SadConsole;
 using SadConsole.Controls;
 using Microsoft.Xna.Framework;

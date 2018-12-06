@@ -169,13 +169,11 @@ namespace GoRogueTest.Entity
 
     public Actor Build()
     {
-      #if MAIN
-      if (_foetus.Map != null)
+      if (!World.Instance.Configs.UnitTest && _foetus.Map != null)
       {
         _foetus.SetFOV();
         _foetus.UpdateFOV();
       }
-      #endif
       return _foetus;
     }
 

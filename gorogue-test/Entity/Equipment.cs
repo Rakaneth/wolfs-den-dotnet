@@ -84,21 +84,22 @@ namespace GoRogueTest.Entity
           $"{eqpTemp.Name} must be made of something but can't be made of {matName}");
       }
         
-      #if MAIN
-      var anim = new Animated(ID, 1, 1);
-      var frame = anim.CreateFrame();
-      frame[0].Glyph = eqpTemp.Glyph;
-      
-      if (eqpTemp.Color != null)
-        frame[0].Foreground = Swatch[eqpTemp.Color];
-      else if (matTemp?.Color != null)
-        frame[0].Foreground = Swatch[matTemp.Color];
-      else
-        frame[0].Foreground = Color.White;
+      if (!World.Instance.Configs.UnitTest)
+      {
+        var anim = new Animated(ID, 1, 1);
+        var frame = anim.CreateFrame();
+        frame[0].Glyph = eqpTemp.Glyph;
+        
+        if (eqpTemp.Color != null)
+          frame[0].Foreground = Swatch[eqpTemp.Color];
+        else if (matTemp?.Color != null)
+          frame[0].Foreground = Swatch[matTemp.Color];
+        else
+          frame[0].Foreground = Color.White;
 
-      frame[0].Background = Color.Transparent;
-      DrawEntity = new SadConsole.Entities.Entity(anim);
-      #endif
+        frame[0].Background = Color.Transparent;
+        DrawEntity = new SadConsole.Entities.Entity(anim);
+      }
     }
 
     public Equipment(string tempID, string matID="none", string itemID=null)

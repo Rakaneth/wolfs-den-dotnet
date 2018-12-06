@@ -1,14 +1,11 @@
 #undef MAIN
 
-using System;
 using Xunit;
 using Xunit.Abstractions;
 using GoRogueTest.Entity;
 using GoRogueTest.RNG;
-using GoRogue.Random;
 using GoRogueTest.Map;
 using GoRogue.MapGeneration.Generators;
-using System.Collections.Generic;
 using GoRogue.MapViews;
 
 namespace GoRogueTest.UnitTests
@@ -148,6 +145,7 @@ namespace GoRogueTest.UnitTests
     public EquipTests(ITestOutputHelper output)
     {
       this.output = output;
+      World.Create(new GameConfigs(true));
     }
 
     [Fact]
@@ -169,10 +167,10 @@ namespace GoRogueTest.UnitTests
       var dex = new Stat("Dex", 6);
       Assert.Equal(6, dex.BaseValue);
       Assert.Equal(6, dex.Value);
-      var flatRaw = new RawBonus(3);
-      var multRaw = new RawBonus(0, 0.5f);
-      var flatFinal = new FinalBonus(8);
-      var multFinal = new FinalBonus(0, 0.2f);
+      var flatRaw = new TempBonus(3);
+      var multRaw = new TempBonus(0, 0.5f);
+      var flatFinal = new TempBonus(8);
+      var multFinal = new TempBonus(0, 0.2f);
       dex.AddRawBonus(flatRaw);
       Assert.Equal(9, dex.Value);
       dex.AddRawBonus(multRaw);
@@ -189,6 +187,19 @@ namespace GoRogueTest.UnitTests
       Assert.Equal(7, dex.Value);
       dex.RemoveFinalBonus(multFinal);
       Assert.Equal(6, dex.Value);
+    }
+
+    [Fact]
+    public void TestStatDurations()
+    {
+      Stat str = new Stat("Strength", 10);
+      str.AddFinalBonus(new TempBonus(baseVal: 5, duration: 5));
+      Assert.Equal(15, str.Value);
+      str.Tick();
+      Assert.Equal(15, str.Value);
+      for (int i=0; i<4; i++)
+        str.Tick();
+      Assert.Equal(10, str.Value);
     }
   }
 

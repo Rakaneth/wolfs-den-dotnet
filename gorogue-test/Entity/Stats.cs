@@ -16,21 +16,28 @@ namespace GoRogueTest.Entity
     }
   }
 
-  public class RawBonus: BaseStat
+  public class TempBonus: BaseStat, IUpkeep
   {
-    public RawBonus(int baseVal=0, float mult=0f): base(baseVal, mult){}
+    public const int FOREVER = -1;
+    public int Duration {get; private set;}
+    public bool Expired => Duration == 0;
+    public TempBonus(int baseVal=0, float mult=0f, int duration=FOREVER): base(baseVal, mult)
+    {
+      Duration = duration;
+    }
+    public void Tick()
+    {
+      if (Duration > 0) 
+        Duration--;    
+    }
   }
 
-  public class FinalBonus: BaseStat
-  {
-    public FinalBonus(int baseVal=0, float mult=0f): base(baseVal, mult){}
-  }
 
-  public class Stat: BaseStat
+  public class Stat: BaseStat, IUpkeep
   {
     public string Name {get;}
-    private List<RawBonus> _rawBonuses = new List<RawBonus>();
-    private List<FinalBonus> _finalBonuses = new List<FinalBonus>();
+    private List<TempBonus> _rawBonuses = new List<TempBonus>();
+    private List<TempBonus> _finalBonuses = new List<TempBonus>();
     private bool _dirty;
     private int _val;
 
@@ -63,22 +70,22 @@ namespace GoRogueTest.Entity
       Name = name;
     }
 
-    public void AddRawBonus(RawBonus bonus) 
+    public void AddRawBonus(TempBonus bonus) 
     {
       _rawBonuses.Add(bonus);
       _dirty = true;
     }
-    public void AddFinalBonus(FinalBonus bonus)
+    public void AddFinalBonus(TempBonus bonus)
     {
       _finalBonuses.Add(bonus);
       _dirty = true;
     } 
-    public void RemoveRawBonus(RawBonus bonus)
+    public void RemoveRawBonus(TempBonus bonus)
     {
       _rawBonuses.Remove(bonus);
       _dirty = true;
     }
-    public void RemoveFinalBonus(FinalBonus bonus)
+    public void RemoveFinalBonus(TempBonus bonus)
     {
       _finalBonuses.Remove(bonus);
       _dirty = true;
@@ -88,6 +95,22 @@ namespace GoRogueTest.Entity
     {
       BaseValue = val;
       _dirty = true;
+    }
+
+    public void Tick()
+    {
+      _finalBonuses.RemoveAll( f =>
+      {
+        f.Tick();
+        _dirty = f.Expired;
+        return f.Expired;
+      });
+      _rawBonuses.RemoveAll( r =>
+      {
+        r.Tick();
+        _dirty = r.Expired;
+        return r.Expired;
+      });
     }
   }
 }
