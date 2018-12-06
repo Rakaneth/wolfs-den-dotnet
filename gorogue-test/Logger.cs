@@ -31,27 +31,31 @@ namespace GoRogueTest
     </style>
   </head>
   <body>
-  <ul>";
+    <ul>
+";
           sw.Write(style);
         }
       }
     }
     public static void Log(LogLevel level, string text)
     {
-      using (var fs = new FileStream(LOGFILE, FileMode.Append, FileAccess.Write))
+      if (World.Instance.Configs.Logging)
       {
-        using (var sw = new StreamWriter(fs))
+        using (var fs = new FileStream(LOGFILE, FileMode.Append, FileAccess.Write))
         {
-          string start = $"{DateTime.Now.ToShortTimeString()}";
-          string output = "";
-          switch (level)
+          using (var sw = new StreamWriter(fs))
           {
-            case LogLevel.ERROR: output = "<span style='color: #ff0000;'>[ERROR]"; break;
-            case LogLevel.INFO: output = "<span style='color: #00ff00;'>[INFO]"; break;
-            case LogLevel.WARNING: output = "<span style='color: #0000ff;'>[WARNING]"; break;
-          }
-          sw.WriteLine($"<li>{output} {start} {text}</span></li>");
-        }  
+            string start = $"{DateTime.Now.ToShortTimeString()}";
+            string output = "";
+            switch (level)
+            {
+              case LogLevel.ERROR: output = "<span style='color: #ff0000;'>[ERROR]"; break;
+              case LogLevel.INFO: output = "<span style='color: #00ff00;'>[INFO]"; break;
+              case LogLevel.WARNING: output = "<span style='color: #0000ff;'>[WARNING]"; break;
+            }
+            sw.WriteLine($"     <li>{output} {start} {text}</span></li>");
+          }  
+        }
       }
     }
 
@@ -61,7 +65,9 @@ namespace GoRogueTest
       {
         using (var sw = new StreamWriter(fs))
         {
-          sw.WriteLine("</ul></body></html>");
+          sw.Write(@"   </ul>
+  </body>
+</html>");
         }
       }
     }
