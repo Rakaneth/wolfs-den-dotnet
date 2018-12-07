@@ -7,6 +7,7 @@ using GoRogueTest.RNG;
 using GoRogueTest.Map;
 using GoRogue.MapGeneration.Generators;
 using GoRogue.MapViews;
+using System;
 
 namespace GoRogueTest.UnitTests
 {
@@ -43,7 +44,7 @@ namespace GoRogueTest.UnitTests
     public RandomTests(ITestOutputHelper output)
     {
       this.output = output;
-      World.Create(0xDEADBEEF);
+      World.Create(0xDEADBEEF, new GameConfigs(true));
     }
 
     [Theory(Skip="Run manually")]
@@ -112,6 +113,29 @@ namespace GoRogueTest.UnitTests
         output.WriteLine($"Race choice: {race.Desc}");
         output.WriteLine($"Material Choice: {material.Name}");
         output.WriteLine(divider);
+      }
+    }
+
+    [Theory]
+    [InlineData(10)]
+    [InlineData(20)]
+    [InlineData(30)]
+    [InlineData(40)]
+    [InlineData(50)]
+    public void TestSkillChecks(int skl)
+    {
+      int sux = 0;
+      DiceResults results;
+      foreach (DiceDifficulty d in Enum.GetValues(typeof(DiceDifficulty)))
+      {
+        sux = 0;
+        for (int i=0; i<10; i++)
+        {
+          results = DiceRolls.BasicCheck(skl, d);
+          if (results.Success)
+            sux++;
+        }
+        Logger.Log(LogLevel.WARNING, $"{sux}/10 successes at difficulty {d} at skill {skl}");
       }
     }
   }
