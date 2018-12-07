@@ -50,7 +50,7 @@ namespace GoRogueTest
             switch (level)
             {
               case LogLevel.ERROR: output = "<span style='color: #990000;'>[ERROR]"; break;
-              case LogLevel.INFO: output = "<span style='color: #009900;'>[INFO]"; break;
+              case LogLevel.INFO: output = "<span style='color: #225522;'>[INFO]"; break;
               case LogLevel.WARNING: output = "<span style='color: #000099;'>[WARNING]"; break;
             }
             sw.WriteLine($"     <li>{output} {start} {text}</span></li>");

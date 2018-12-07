@@ -116,7 +116,7 @@ namespace GoRogueTest.UnitTests
       }
     }
 
-    [Theory(Skip="Run manually")]
+    [Theory]
     [InlineData(10)]
     [InlineData(20)]
     [InlineData(30)]

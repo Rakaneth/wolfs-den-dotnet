@@ -5,11 +5,11 @@ namespace GoRogueTest.RNG
 {
   public enum DiceDifficulty
   {
-    STANDARD = 50,
-    CHALLENGING = 60,
-    DIFFICULT = 70,
-    IMPROBABLE = 80,
-    IMPOSSIBLE = 90
+    STANDARD = 60,
+    CHALLENGING = 70,
+    DIFFICULT = 85,
+    IMPROBABLE = 100,
+    IMPOSSIBLE = 110
   }
 
   public class DiceResults
