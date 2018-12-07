@@ -116,7 +116,7 @@ namespace GoRogueTest.UnitTests
       }
     }
 
-    [Theory]
+    [Theory(Skip="Run manually")]
     [InlineData(10)]
     [InlineData(20)]
     [InlineData(30)]
@@ -135,7 +135,7 @@ namespace GoRogueTest.UnitTests
           if (results.Success)
             sux++;
         }
-        Logger.Log(LogLevel.WARNING, $"{sux}/10 successes at difficulty {d} at skill {skl}");
+        Logger.Log(LogLevel.WARNING, $"{sux}/10 successes at difficulty {d} and skill {skl}");
       }
     }
   }
