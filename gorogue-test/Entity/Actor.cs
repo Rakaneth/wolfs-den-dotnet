@@ -131,7 +131,11 @@ namespace GoRogueTest.Entity
       companion.AddAlly(ID);
     }
 
-    public void MakePlayer() => IsPlayer = true;
+    public void MakePlayer()
+    {
+      IsPlayer = true;
+      World.Instance.SetPlayer(this);
+    } 
     public void MakeNPC() => IsPlayer = false;
 
     public void NewNaturalWeapon(Equipment naturalWeapon)

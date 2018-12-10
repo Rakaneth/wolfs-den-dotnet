@@ -14,6 +14,8 @@ namespace GoRogueTest.Map
     DOWNSTAIRS,
     DEEPWATER,
     SHALLOWWATER,
+    INDOOR,
+    OUTDOOR,
     NULL
   }
 
@@ -43,7 +45,9 @@ namespace GoRogueTest.Map
       [Tile.DOWNSTAIRS] = new TileInfo('>'),
       [Tile.DEEPWATER] = new TileInfo('~', false, false),
       [Tile.SHALLOWWATER] = new TileInfo('~'),
-      [Tile.NULL] = new TileInfo(0, false, false)
+      [Tile.NULL] = new TileInfo(0, false, false),
+      [Tile.INDOOR] = new TileInfo(0xEF, true, true),
+      [Tile.OUTDOOR] = new TileInfo(0xEF, true, true)
     };
 
     public static TileInfo GetInfo(Tile tile) => data[tile];

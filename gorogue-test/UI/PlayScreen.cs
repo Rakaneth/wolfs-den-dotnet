@@ -32,6 +32,12 @@ namespace GoRogueTest.UI
     private const int INFOH = 8;
     private const int INFOX = 51;
     private const int INFOY = 31;
+    private const int STRROW = 4;
+    private const int STAMROW = 5;
+    private const int SPDROW = 6;
+    private const int SKLROW = 7;
+    private const int SAGROW = 8;
+    private const int SMTROW = 9;
     #endregion
     #region Consoles
     private SadConsole.Console map = new SadConsole.Console(MAPFULLW, MAPFULLH)
@@ -74,6 +80,11 @@ namespace GoRogueTest.UI
     private void InitStats()
     {
       UIUtils.border(stats, "Stats");
+      var statPrint = new string[]{"Str", "Stam", "Spd", "Skl", "Sag", "Smt"};
+      for (int i=0; i<statPrint.Length; i++)
+      {
+        stats.Print(0, i + 4, statPrint[i]);
+      }
       Children.Add(stats);
     }
 
@@ -91,6 +102,7 @@ namespace GoRogueTest.UI
     private void StartGame()
     {
       World.Instance.AddMap("mine", MapGenerator.Instance.Caves(85, 85, false));
+     
       var anim = new SadConsole.Surfaces.Animated("cursor", 1, 1);
       var frame = anim.CreateFrame();
       frame[0].Glyph = 'X';
@@ -99,16 +111,18 @@ namespace GoRogueTest.UI
       var cursorE = new SadConsole.Entities.Entity(anim);
       var cursor = new ActorBuilder("Cursor")
         .WithEntity(cursorE)
-        .WithPosition(0, 0)
+        .WithPosition(World.Instance.GetMap("mine").RandomFloor())
         .WithName("Test")
         .WithStartMap("mine")
         .MakePlayer()
         .Build();
+
       
-      World.Instance.AddEntities(cursor);
-      ChangeMap("mine");
+      
       map.Children.Add(em);
+      ChangeMap("mine");
       UpdateMap();
+      UpdateHud();
       gameStarted = true;
     }
     #endregion
@@ -118,7 +132,7 @@ namespace GoRogueTest.UI
     {
       //TODO: Better pattern
       var keys = SadConsole.Global.KeyboardState;
-      var cursor = World.Instance.GetByID<Actor>("Cursor");
+      var cursor = World.Instance.Player;
       if (keys.IsKeyPressed(Keys.Left))
       {
         cursor.MoveBy(-1, 0);
@@ -144,6 +158,7 @@ namespace GoRogueTest.UI
       {
         cursor.UpdateFOV();
         UpdateMap();
+        UpdateHud();
         map.CenterViewPortOnPoint(cursor.DrawEntity.Position);
         cursor.Update();
       }
@@ -168,6 +183,13 @@ namespace GoRogueTest.UI
         if (curCell != null)
           map.Cells[pos.ToIndex(map.Width)] = curCell;
       }
+    }
+
+    private void UpdateHud()
+    {
+      stats.Print(0, 0, World.Instance.Player.Name);
+      stats.Print(0, 1, World.Instance.CurMap.Name);
+
     }
 
     private void ChangeMap(string mapID)

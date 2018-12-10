@@ -2,9 +2,25 @@ using GoRogue;
 using GoRogue.MapGeneration;
 using GoRogue.MapViews;
 using System.Collections.Generic;
+using System.Linq;
+using BoneGen;
 
 namespace GoRogueTest.Map
 {
+  public enum MapExitType
+  {
+    UP,
+    DOWN,
+    OUT,
+    IN
+  }
+  public class MapConnection
+  {
+    public Coord ToPos {get;}
+    public string ToMapID {get;}
+    public MapExitType ExitType {get;}
+    public bool TwoWay {get; set;}
+  }
   public class TileMap
   {
     private ArrayMap<Tile> _tiles;
@@ -19,6 +35,8 @@ namespace GoRogueTest.Map
     public IEnumerable<Coord> Positions => _tiles.Positions();
     public ISettableMapView<Tile> Tiles => _tiles;
     public bool Light {get; set;}
+    public string Name {get; set;}
+    private IDictionary<Coord, MapConnection> _connections = new Dictionary<Coord, MapConnection>();
     public Tile this[int x, int y]
     {
       get => _tiles[x, y];
@@ -50,6 +68,23 @@ namespace GoRogueTest.Map
         }
       }
       return newMap;
+    }
+
+    public static TileMap FromTemplate(string mapID)
+    {
+      var template = MapTemplates.templates[mapID];
+      TilesetType tileset = TilesetType.DEFAULT_DUNGEON;
+      switch (template.Type)
+      {
+        case "caves": tileset = TilesetType.CORNER_CAVES; break;
+        default: break;
+      }
+      int w = template.Width;
+      int h = template.Height;
+      char[,] boneGen = BoneGen.BoneGen.WallWrap(new BoneGen.BoneGen().Generate(tileset, h, w));
+      TileMap baseMap = ToTileMap(boneGen, template.Light);
+      baseMap.Name = template.Name;
+      return baseMap;
     }
 
     public TileMap(int width, int height, bool isLight)
@@ -94,6 +129,19 @@ namespace GoRogueTest.Map
     public void Explore(int x, int y) => explored[x, y] = true;
     public void Explore(Coord c) => Explore(c.X, c.Y);
     public void Forget() => explored = new bool[Width, Height];
+    public void Connect(Coord from, MapConnection To)
+    {
+      _connections[from] = To;
+    }
+    public MapConnection GetConnection(Coord c) => _connections[c];
+    public Coord RandomFloor()
+    {
+      var cands = Positions
+        .Where(c => GetInfo(c).Walk)
+        .ToList();
+      int roll = World.Instance.RNG.Next(cands.Count);
+      return cands[roll];
+    }
   }
   public class VisibleTileMapTranslator: TranslationMap<Tile, bool>
   {

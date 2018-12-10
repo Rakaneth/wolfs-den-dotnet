@@ -14,6 +14,7 @@ namespace GoRogueTest
     static private World _instance;
     private IGenerator _rng;
     public GameConfigs Configs {get; private set;}
+    public Actor Player {get; private set;}
     static public World Instance
     {
       get
@@ -62,10 +63,22 @@ namespace GoRogueTest
     public TileMap GetMap(string mapID) => _maps[mapID];
     public T GetByID<T>(string eID) where T: GameEntity => _things[eID] as T;
     public void AddMap(string mapID, TileMap map) => _maps[mapID] = map;
+    public void AddMap(TileMap map) => _maps[map.ID] = map;
     public void AddEntities(params GameEntity[] things) 
     {
       foreach (var thing in things)
         _things[thing.ID] = thing;
+    }
+
+    public void SetPlayer(Actor newPlayer)
+    {
+      Player = newPlayer;
+      AddEntities(Player);
+    }
+
+    public void GenerateAllMaps()
+    {
+      //TODO: finish
     }
   }
 }

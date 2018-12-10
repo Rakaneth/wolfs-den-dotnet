@@ -1,0 +1,55 @@
+---
+worldMap:
+  name: Salaban
+  width: 100
+  height: 100
+  light: true
+  type: world
+  connections:
+    - toMapID: mine
+      exitType: in
+      twoWay: true
+mine:
+  name: Mines (Upper)
+  width: 85
+  height: 85
+  light: true
+  type: uniform
+  connections:
+    - toMapID: mine2
+      exitType: down
+      twoWay: true
+mine2:
+  name: Mines (Lower)
+  width: 85
+  height: 85
+  type: uniform
+  connections:
+    - toMapID: caves
+      exitType: down
+      twoWay: true
+caves:
+  name: Caves (Upper)
+  width: 100
+  type: caves
+  connections:
+    - toMapID: caves2
+      exitType: down
+      twoWay: true
+caves2:
+  name: Caves (Lower)
+  width: 100
+  height: 100
+  type: caves
+  connections:
+    - toMapID: crypt
+      exitType: down
+      twoWay: true
+crypt:
+  name: Crypt
+  width: 80
+  height: 40
+  type: uniform
+
+
+
